@@ -14,10 +14,10 @@ import boto3
 
 def connect(url):
     client = boto3.resource('sqs',
-                            endpoint_url='%s' % (url),
-                            region_name="elasticmq",
-                            aws_secret_access_key='x',
-                            aws_access_key_id='x',
+                            endpoint_url='%s' % (url), #
+                            region_name="elasticmq", #
+                            aws_secret_access_key='x', #parameters
+                            aws_access_key_id='x', #
                             use_ssl=False)
     return client
 

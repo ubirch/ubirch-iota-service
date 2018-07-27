@@ -11,6 +11,4 @@ def poll(queue):
         print(m.body)
 
 
-
-while True:
-    poll(queue=queue1)
+poll(queue=queue1)
