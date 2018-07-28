@@ -1,9 +1,9 @@
 # import subprocess
-#
 # bashCommand = "cd ../elasticMQServer && java -Dconfig.file=custom.conf -Dlogback.configurationFile=my_logback.xml -jar elasticmq-server-0.14.2.jar"
 # process = subprocess.Popen(bashCommand.split(), stdout=subprocess.PIPE)
 # output, error = process.communicate()
 
+#Librabry used in sender and receiver scripts to connect to the elasticMQ Server
 
 # TO START THE SERVER
 # java -Dconfig.file=custom.conf -jar elasticmq-server-0.14.2.jar
