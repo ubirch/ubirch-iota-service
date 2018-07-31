@@ -8,6 +8,7 @@ import receiver
 
 import json
 import sys
+
 import random
 
 from iota import TryteString
@@ -30,6 +31,8 @@ queue2 = EMQ.getQueue(url, 'queue2')
 errorQueue = EMQ.getQueue(url, 'errorQueue')
 
 
+
+
 def main(queue_name):
     """Continuously poll the queue for messages"""
     while True:
@@ -39,9 +42,14 @@ def main(queue_name):
 def poll(queue): #Messages are written 1 by 1 so we receive them on by one
     #messages = queue.receive_messages()
     messages = queue.receive_messages(MaxNumberOfMessages=10)  # Note: MaxNumberOfMessages default is 1.
+#   queue.delete_message()          #Clear the queue1 after reading
     for m in messages:
         print(m.body)
-#        storeString(m.body)
+        tx = storeString(m.body)
+        EMQ.send(queue2, tx)
+
+
+main(queue1)
 
 
 
@@ -122,14 +130,13 @@ def storeString(string):
 
     # We store the string into message part of the transaction
     message = TryteString.from_unicode(string) #Conversion
-
     proposedTransaction = ProposedTransaction(
         address=Address(receiver_address),
         value=0,
         message=message
     )
 
-    # Execution of the transaction
+    # Execution of the transaction + ADD ERROR CASE
     transfer = api.send_transfer(
         depth=depth,
         transfers=[proposedTransaction],
@@ -137,13 +144,16 @@ def storeString(string):
     )
 
     transactionHash = []
-    for transaction in transfer["bundle"]:
+    for transaction in transfer["bundle"]: #Bundle of transaction published on the Tangle
         transactionHash.append(transaction.hash)
         print(transaction.address, transaction.hash)
 
     txId = api.get_latest_inclusion(transactionHash)
     print(txId)
-    return txId #To be sent in queue2
+    return txId  #To be sent in queue2
+
+
+
 
 #Send also error in errorQueue (message > 2187 trytes etc)
 

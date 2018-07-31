@@ -11,12 +11,13 @@ client = EMQ.connect(url)
 queue1 = EMQ.getQueue(url, 'queue1')
 
 
-def send(queue):
+def send(queue, msg):
     return queue.send_message(
         MessageBody=(
-            'Hallo Ubirch'
+            msg
+
         )
     )
 
 
-send(queue1)
+send(queue1, 'Hallo')

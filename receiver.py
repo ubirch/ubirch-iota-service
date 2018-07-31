@@ -8,9 +8,9 @@ queue1 = EMQ.getQueue(url, 'queue1')
 queue2 = EMQ.getQueue(url, 'queue2')
 errorQueue = EMQ.getQueue(url, 'errorQueue')
 
-
+#
 def receive(queue):
-    messages = queue.receive_messages(MaxNumberOfMessages=100)  # Note: MaxNumberOfMessages default is 1.
+    messages = queue.receive_messages(MaxNumberOfMessages=10)  # Note: MaxNumberOfMessages default is 1.
     for m in messages:
         print(m.body)
         print(len(messages))
