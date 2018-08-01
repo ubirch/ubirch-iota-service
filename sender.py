@@ -19,8 +19,10 @@ def send(queue, msg):
         MessageBody=msg
     )
 
-for i in range(0,10):
-    send(queue1, 'ABCD569' + str(i))
+
+for i in range(0,20):
+    send(queue1, '0123456789ABCDEF' + str(i))
+
 
 
 #TODO: INFINITE LOOP TRY CATCH (HASH OF TIME STAMP + RANDOM ERROR )

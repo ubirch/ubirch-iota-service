@@ -48,7 +48,7 @@ def generateSeed():
 
 
 sender_seed = b'OF9JOIDX9NVXPQUNQLHVBBNKNBVQGMWHIRZBGWJOJLRGQKFMUMZFGAAEQZPXSWVIEBICOBKHAPWYWHAUF'
-# receiver_seed = b'DBWJNNRZRKRSFAFRZDDKAUFSZCTDZHJXDLHVCEVQKMFHN9FYEVNJS9JPNFCLXNKNWYAJ9CUQSCNHTBWWB'
+receiver_seed = b'DBWJNNRZRKRSFAFRZDDKAUFSZCTDZHJXDLHVCEVQKMFHN9FYEVNJS9JPNFCLXNKNWYAJ9CUQSCNHTBWWB'
 
 
 api = Iota(uri, seed=sender_seed)
@@ -73,7 +73,7 @@ def storeString(string):
     sender_account = api.get_account_data(start=0)
     print("sender balance = " + str(sender_account["balance"]))
 
-    if validateString(string):
+    if is_hex(string):
         # We store the string into message part of the transaction
         message = TryteString.from_unicode(string)
         #if message > 2187 Trytes, it is sent in several transactions
@@ -94,7 +94,7 @@ def storeString(string):
         return getTransactionHashes(transfer)
 
     else:
-        print("message is not a hash")
+        print(string + " is not a hash")
 
 
 def getTransactionHashes(transfer):
@@ -106,22 +106,28 @@ def getTransactionHashes(transfer):
     inclusionState = api.get_latest_inclusion(transactionHash)
     print("latest inclusion state : " + str(inclusionState))
 
-    return transactionHash  # LIST : To be sent in queue2
+    return transactionHash
 
-#TODO : VALIDATE BODY OF MESSAGE
 
-def validateString(string):
-    return str(hex(string)) == string
+def is_hex(s):
+    try:
+        int(s, 16)
+        return True
+    except ValueError:
+        return False
+
 
 def main(queue_name):
-    """Continuously poll the queue for messages"""
+    """Continuously polls the queue for messages"""
     while True:
         poll(queue=queue_name)
 
 
 #Messages are written 1 by 1 so we receive them on by one
+
+
 def poll(queue):
-    messages = queue.receive_messages()  # Note: MaxNumberOfMessages default is 1.
+    messages = queue.receive_messages(MaxNumberOfMessages=10)  # Note: MaxNumberOfMessages default is 1.
     #queue.delete_messages()          #TODO Clear the queue1 after reading
     for m in messages:
         transactionHashes = storeString(m.body)
