@@ -3,20 +3,21 @@
 
 # Connects to the elasticMQServer and retrieves a queue
 # See custom.conf for more details
+import sys
+sys.path.insert(0, 'Library')
 
-import Library.ElasticMQ_Connection as EMQ
+import ElasticMQ_Connection as EMQ
 
 url = 'http://localhost:9324'
+
+#client = EMQ.connect(endpoint_url, region_name, aws_secret_access_key, aws_access_key_id)
 client = EMQ.connect(url)
-queue1 = EMQ.getQueue(url, 'queue1')
+queue1 = EMQ.getQueue('queue1')
 
 
 def send(queue, msg):
     return queue.send_message(
-        MessageBody=(
-            msg
-
-        )
+        MessageBody = msg
     )
 
 

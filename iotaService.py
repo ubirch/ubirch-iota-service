@@ -1,67 +1,42 @@
 # coding: utf-8
 
-#Anchors the HASH of the message received in queue1
-#Sends the TxID in queue2
-#Runs continuously (check if messages are available in queue1)
-
-import receiver
-
 import json
 import sys
-
 import random
+import boto3
 
 from iota import TryteString
 from iota import Iota
 from iota import Address
 from iota import ProposedTransaction
 
-import Library.ElasticMQ_Connection as EMQ
+
+sys.path.insert(0, 'Library')
+import ElasticMQ_Connection as EMQ
+import sender
 
 
 
 depth = 6
-uri = 'https://testnet140.tangle.works:4'
+uri = 'https://testnet140.tangle.works:443'
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9' #Used to generate the seed
 
-
 url = 'http://localhost:9324'
-queue1 = EMQ.getQueue(url, 'queue1')
-queue2 = EMQ.getQueue(url, 'queue2')
-errorQueue = EMQ.getQueue(url, 'errorQueue')
+queue1 = EMQ.getQueue('queue1')
+queue2 = EMQ.getQueue('queue2')
+errorQueue = EMQ.getQueue('errorQueue')
 
+client = boto3.resource('sqs',
+                        endpoint_url=url,  #
+                        region_name="elasticmq",  #
+                        aws_secret_access_key='x',  # parameters
+                        aws_access_key_id='x',  #
+                        use_ssl=False)
 
+#Anchors the HASH of the message received in queue1
+#Sends the TxID in queue2
+#Runs continuously (check if messages are available in queue1)
 
-
-def main(queue_name):
-    """Continuously poll the queue for messages"""
-    while True:
-        poll(queue=queue_name)
-
-
-def poll(queue): #Messages are written 1 by 1 so we receive them on by one
-    #messages = queue.receive_messages()
-    messages = queue.receive_messages(MaxNumberOfMessages=10)  # Note: MaxNumberOfMessages default is 1.
-#   queue.delete_message()          #Clear the queue1 after reading
-    for m in messages:
-        print(m.body)
-        tx = storeString(m.body)
-        EMQ.send(queue2, tx)
-
-
-main(queue1)
-
-
-
-
-
-
-#Converts a Json file into Trytes
-
-# def JsontoTrytes(file):
-#     data = open(file).read()
-#     dataString = json.dumps(data)
-#     return TryteString.from_unicode(dataString)
 
 
 #Seed generator
@@ -84,38 +59,6 @@ def generateAddress():
     addresses = gna_result['addresses']
     return addresses
 
-# def storeJson(file):
-#     receiver_address = generateAddress()[0]
-#     sender_address = generateAddress()[1]
-#
-#     print('receiver address = ', receiver_address)
-#     print('sender address = ', sender_address)
-#
-#     sender_account = api.get_account_data(start=0)
-#     print("sender balance = " + str(sender_account["balance"]))
-#
-#     # We store the json file into message part of the transaction
-#     message = JsontoTrytes(file)
-#
-#     proposedTransaction = ProposedTransaction(
-#         address=Address(receiver_address),
-#         value=0,
-#         message=message
-#     )
-#
-#     # Execution of the transaction
-#     transfer = api.send_transfer(
-#         depth=depth,
-#         transfers=[proposedTransaction],
-#         inputs=[Address(sender_address, key_index=0, security_level=2)]
-#     )
-#
-#     transactionHash = []
-#     for transaction in transfer["bundle"]:
-#         transactionHash.append(transaction.hash)
-#         print(transaction.address, transaction.hash)
-#
-#     print(api.get_latest_inclusion(transactionHash))
 
 
 def storeString(string):
@@ -129,18 +72,20 @@ def storeString(string):
     print("sender balance = " + str(sender_account["balance"]))
 
     # We store the string into message part of the transaction
-    message = TryteString.from_unicode(string) #Conversion
+    message = TryteString.from_unicode(string)
+    #if message > 2187 Trytes, it is sent in different transactions
+
     proposedTransaction = ProposedTransaction(
         address=Address(receiver_address),
         value=0,
         message=message
     )
 
-    # Execution of the transaction + ADD ERROR CASE
+    # Execution of the transaction
     transfer = api.send_transfer(
         depth=depth,
         transfers=[proposedTransaction],
-        inputs=[Address(sender_address, key_index=0, security_level=2)]
+        inputs=[Address(sender_address, key_index=0, security_level=2)] #ignored for 0 value transfers
     )
 
     transactionHash = []
@@ -148,18 +93,31 @@ def storeString(string):
         transactionHash.append(transaction.hash)
         print(transaction.address, transaction.hash)
 
-    txId = api.get_latest_inclusion(transactionHash)
-    print(txId)
-    return txId  #To be sent in queue2
+    inclusionState = api.get_latest_inclusion(transactionHash)
+    print("latest inclusion state : " + str(inclusionState))
+
+    return transactionHash  #LIST : To be sent in queue2
 
 
 
+def main(queue_name):
+    """Continuously poll the queue for messages"""
+    while True:
+        poll(queue=queue_name)
 
-#Send also error in errorQueue (message > 2187 trytes etc)
+
+#Messages are written 1 by 1 so we receive them on by one
+def poll(queue):
+    messages = queue.receive_messages()  # Note: MaxNumberOfMessages default is 1.
+#   queue.delete_message()          #TODO Clear the queue1 after reading
+    for m in messages:
+        hashed_data = str(hash(m.body)) #TODO : better hashing fct
+        transactionHashes = storeString(hashed_data)
+        for txid in transactionHashes:
+            sender.send(queue2, str(txid))
 
 
-# try:
-#     storeString(sys.argv[1])
-#
-# except IndexError:
-#     print("No string given!")
+poll(queue1)
+
+
+
