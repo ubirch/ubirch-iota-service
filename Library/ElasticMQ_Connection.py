@@ -1,6 +1,8 @@
 #Librabry used in sender and receiver scripts to connect to the elasticMQ Server
 
 # TO START THE SERVER
+#  See custom.conf for more details
+
 # java -Dconfig.file=custom.conf -jar elasticmq-server-0.14.2.jar
 
 import boto3

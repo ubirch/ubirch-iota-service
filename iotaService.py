@@ -33,6 +33,7 @@ client = boto3.resource('sqs',
                         aws_access_key_id='x',  #
                         use_ssl=False)
 
+
 #Anchors the HASH of the message received in queue1
 #Sends the TxID in queue2
 #Runs continuously (check if messages are available in queue1)
@@ -47,12 +48,13 @@ def generateSeed():
 
 
 sender_seed = b'OF9JOIDX9NVXPQUNQLHVBBNKNBVQGMWHIRZBGWJOJLRGQKFMUMZFGAAEQZPXSWVIEBICOBKHAPWYWHAUF'
-receiver_seed = b'DBWJNNRZRKRSFAFRZDDKAUFSZCTDZHJXDLHVCEVQKMFHN9FYEVNJS9JPNFCLXNKNWYAJ9CUQSCNHTBWWB'
+# receiver_seed = b'DBWJNNRZRKRSFAFRZDDKAUFSZCTDZHJXDLHVCEVQKMFHN9FYEVNJS9JPNFCLXNKNWYAJ9CUQSCNHTBWWB'
 
 
 api = Iota(uri, seed=sender_seed)
 print(api.get_node_info())
 
+#TODO: WALLET MANAGEMENT
 
 def generateAddress():
     gna_result = api.get_new_addresses(count=2)
@@ -71,34 +73,45 @@ def storeString(string):
     sender_account = api.get_account_data(start=0)
     print("sender balance = " + str(sender_account["balance"]))
 
-    # We store the string into message part of the transaction
-    message = TryteString.from_unicode(string)
-    #if message > 2187 Trytes, it is sent in different transactions
+    if validateString(string):
+        # We store the string into message part of the transaction
+        message = TryteString.from_unicode(string)
+        #if message > 2187 Trytes, it is sent in several transactions
 
-    proposedTransaction = ProposedTransaction(
-        address=Address(receiver_address),
-        value=0,
-        message=message
-    )
+        proposedTransaction = ProposedTransaction(
+            address=Address(receiver_address),
+            value=0,
+            message=message
+        )
 
-    # Execution of the transaction
-    transfer = api.send_transfer(
-        depth=depth,
-        transfers=[proposedTransaction],
-        inputs=[Address(sender_address, key_index=0, security_level=2)] #ignored for 0 value transfers
-    )
+        # Execution of the transaction
+        transfer = api.send_transfer(
+            depth=depth,
+            transfers=[proposedTransaction],
+            inputs=[Address(sender_address, key_index=0, security_level=2)] #ignored for 0 value transfers
+        )
 
+        return getTransactionHashes(transfer)
+
+    else:
+        print("message is not a hash")
+
+
+def getTransactionHashes(transfer):
     transactionHash = []
-    for transaction in transfer["bundle"]: #Bundle of transaction published on the Tangle
+    for transaction in transfer["bundle"]:  # Bundle of transaction published on the Tangle
         transactionHash.append(transaction.hash)
         print(transaction.address, transaction.hash)
 
     inclusionState = api.get_latest_inclusion(transactionHash)
     print("latest inclusion state : " + str(inclusionState))
 
-    return transactionHash  #LIST : To be sent in queue2
+    return transactionHash  # LIST : To be sent in queue2
 
+#TODO : VALIDATE BODY OF MESSAGE
 
+def validateString(string):
+    return str(hex(string)) == string
 
 def main(queue_name):
     """Continuously poll the queue for messages"""
@@ -109,15 +122,15 @@ def main(queue_name):
 #Messages are written 1 by 1 so we receive them on by one
 def poll(queue):
     messages = queue.receive_messages()  # Note: MaxNumberOfMessages default is 1.
-#   queue.delete_message()          #TODO Clear the queue1 after reading
+    #queue.delete_messages()          #TODO Clear the queue1 after reading
     for m in messages:
-        hashed_data = str(hash(m.body)) #TODO : better hashing fct
-        transactionHashes = storeString(hashed_data)
-        for txid in transactionHashes:
-            sender.send(queue2, str(txid))
+        transactionHashes = storeString(m.body)
+        for txid in transactionHashes: #In case of the anchoring results in several transactions
+            json_data = json.dumps({str(txid) : m.body})
+            sender.send(queue2, json_data)
 
 
-poll(queue1)
+main(queue1)
 
 
 

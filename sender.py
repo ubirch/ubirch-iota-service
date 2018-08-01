@@ -2,7 +2,6 @@
 
 
 # Connects to the elasticMQServer and retrieves a queue
-# See custom.conf for more details
 import sys
 sys.path.insert(0, 'Library')
 
@@ -17,8 +16,12 @@ queue1 = EMQ.getQueue('queue1')
 
 def send(queue, msg):
     return queue.send_message(
-        MessageBody = msg
+        MessageBody=msg
     )
 
+for i in range(0,10):
+    send(queue1, 'ABCD569' + str(i))
 
-send(queue1, 'Hallo')
+
+#TODO: INFINITE LOOP TRY CATCH (HASH OF TIME STAMP + RANDOM ERROR )
+#TODO: AUTH ARGPARSE IN EACH FILE
