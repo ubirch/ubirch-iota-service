@@ -2,8 +2,8 @@
 # Connects to the elasticMQServer and retrieves a queue
 import sys
 sys.path.insert(0, 'Library')
-
 import ElasticMQ_Connection as EMQ
+import argparse
 
 url = 'http://localhost:9324'
 

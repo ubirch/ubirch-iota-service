@@ -4,6 +4,8 @@ import json
 import sys
 import random
 import boto3
+import argparse
+import time
 
 from iota import TryteString
 from iota import Iota
@@ -15,23 +17,32 @@ sys.path.insert(0, 'Library')
 import ElasticMQ_Connection as EMQ
 import sender
 
+#TODO : reduce anchoring time
+
+parser = argparse.ArgumentParser(description='Ubirch iota anchoring service')
+
+parser.add_argument('-u', '--url', help="endpoint url of the sqs server, input localhost:9324 for local connection (default)", metavar="URL", type=str, default="http://localhost:9324")
+parser.add_argument('-r', '--region', help="region name of sqs server, (default : 'elasticmq' for local)", metavar="REGION", type=str, default="elasticmq")
+parser.add_argument('-ak', '--accesskey', help="AWS secret access key, input 'x'for local connection (default)", metavar="SECRETACCESSKEY", type=str, default="x")
+parser.add_argument('-ki', '--keyid', help="AWS access key id, input 'x' for local connection (default)", metavar="KEYID", type=str, default="x")
+
+args = parser.parse_args()
+
+url = args.url
+region = args.region
+aws_secret_access_key = args.accesskey
+aws_access_key_id = args.keyid
+
+queue1 = EMQ.getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
+queue2 = EMQ.getQueue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
+errorQueue = EMQ.getQueue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
+
 
 
 depth = 6
 uri = 'https://testnet140.tangle.works:443'
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9' #Used to generate the seed
 
-url = 'http://localhost:9324'
-queue1 = EMQ.getQueue('queue1')
-queue2 = EMQ.getQueue('queue2')
-errorQueue = EMQ.getQueue('errorQueue')
-
-client = boto3.resource('sqs',
-                        endpoint_url=url,  #
-                        region_name="elasticmq",  #
-                        aws_secret_access_key='x',  # parameters
-                        aws_access_key_id='x',  #
-                        use_ssl=False)
 
 
 #Anchors the HASH of the message received in queue1
@@ -76,7 +87,7 @@ def storeString(string):
     if is_hex(string):
         # We store the string into message part of the transaction
         message = TryteString.from_unicode(string)
-        #if message > 2187 Trytes, it is sent in several transactions
+        # if message > 2187 Trytes, it is sent in several transactions
 
         proposedTransaction = ProposedTransaction(
             address=Address(receiver_address),
