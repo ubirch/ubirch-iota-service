@@ -1,12 +1,14 @@
-#Sends a message (STRING) into queue1 (one by one)
+#Sends messages (HASH (hex) into queue1
 
-
-# Connects to the elasticMQServer and retrieves a queue
 import sys
 import argparse
 sys.path.insert(0, 'Library')
 
 import ElasticMQ_Connection as EMQ
+
+#For testing
+import time
+import hashlib
 
 
 parser = argparse.ArgumentParser(description='Ubirch iota anchoring service')
@@ -32,9 +34,19 @@ def send(queue, msg):
     )
 
 
-for i in range(0,5):
-    send(queue1, '0123456789ABCDEF' + str(i))
+i = 0
+j = 0
+while True:
+    t = str(time.time())
+    message = hashlib.sha256(t).hexdigest()
+    if '0' in message[0:8]:
+        send(queue1, "error %s" %i)
+        print("error %s sent" %i)
+        time.sleep(1)
+        i += 1
 
-
-
-#TODO: INFINITE LOOP TRY CATCH (HASH OF TIME STAMP + RANDOM ERROR )
+    else:
+        send(queue1, message)
+        print("message %s sent" % j)
+        time.sleep(1)
+        j += 1
