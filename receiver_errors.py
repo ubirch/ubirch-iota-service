@@ -1,14 +1,10 @@
-#Sends messages (HASH (hex) into queue1
+#Retrieves Json (message sent + txid) & error messages after anchoring into the IOTA Blockchain
 
 import sys
-import argparse
 sys.path.insert(0, 'Library')
-
 import ElasticMQ_Connection as EMQ
+import argparse
 
-#For testing
-import time
-import hashlib
 
 
 parser = argparse.ArgumentParser(description='Ubirch iota anchoring service')
@@ -25,26 +21,14 @@ region = args.region
 aws_secret_access_key = args.accesskey
 aws_access_key_id = args.keyid
 
-queue1 = EMQ.getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
+
+errorQueue = EMQ.getQueue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
 
 
-def send(queue, msg):
-    return queue.send_message(
-        MessageBody=msg
-    )
-
-
-i = 0
-j = 0
 while True:
-    t = str(time.time())
-    message = hashlib.sha256(t).hexdigest()
-    if '0' in message[0:8]:
-        send(queue1, "error %s" %i)
-        print("error %s sent" %i)
-        i += 1
+    errors = errorQueue.receive_messages()
+    for e in errors:
+        print(e.body)
+        e.delete()
 
-    else:
-        send(queue1, message)
-        print("message %s sent" % j)
-        j += 1
+

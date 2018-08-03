@@ -4,23 +4,27 @@ import json
 import sys
 import random
 import argparse
-import time #for testing
+import time  # for testing
 
 from iota import TryteString
 from iota import Iota
 from iota import Address
 from iota import ProposedTransaction
 
-
 sys.path.insert(0, 'Library')
 import ElasticMQ_Connection as EMQ
 
 parser = argparse.ArgumentParser(description='Ubirch iota anchoring service')
 
-parser.add_argument('-u', '--url', help="endpoint url of the sqs server, input localhost:9324 for local connection (default)", metavar="URL", type=str, default="http://localhost:9324")
-parser.add_argument('-r', '--region', help="region name of sqs server, (default : 'elasticmq' for local)", metavar="REGION", type=str, default="elasticmq")
-parser.add_argument('-ak', '--accesskey', help="AWS secret access key, input 'x'for local connection (default)", metavar="SECRETACCESSKEY", type=str, default="x")
-parser.add_argument('-ki', '--keyid', help="AWS access key id, input 'x' for local connection (default)", metavar="KEYID", type=str, default="x")
+parser.add_argument('-u', '--url',
+                    help="endpoint url of the sqs server, input localhost:9324 for local connection (default)",
+                    metavar="URL", type=str, default="http://localhost:9324")
+parser.add_argument('-r', '--region', help="region name of sqs server, (default : 'elasticmq' for local)",
+                    metavar="REGION", type=str, default="elasticmq")
+parser.add_argument('-ak', '--accesskey', help="AWS secret access key, input 'x'for local connection (default)",
+                    metavar="SECRETACCESSKEY", type=str, default="x")
+parser.add_argument('-ki', '--keyid', help="AWS access key id, input 'x' for local connection (default)",
+                    metavar="KEYID", type=str, default="x")
 
 args = parser.parse_args()
 
@@ -33,11 +37,10 @@ queue1 = EMQ.getQueue('queue1', url, region, aws_secret_access_key, aws_access_k
 queue2 = EMQ.getQueue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
 errorQueue = EMQ.getQueue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
 
+chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'  # Used to generate the seed
 
 
-chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9' #Used to generate the seed
-
-#Seed generator
+# Seed generator
 def generateSeed():
     seed = ''
     for i in range(81): seed += random.choice(chars)
@@ -47,7 +50,7 @@ def generateSeed():
 seed = b'OF9JOIDX9NVXPQUNQLHVBBNKNBVQGMWHIRZBGWJOJLRGQKFMUMZFGAAEQZPXSWVIEBICOBKHAPWYWHAUF'
 
 depth = 6
-uri = 'https://testnet140.tangle.works:443'
+uri = 'https://nodes.devnet.iota.org:443'
 api = Iota(uri, seed=seed)
 print("node info : " + str(api.get_node_info()))
 
@@ -64,14 +67,14 @@ def generateAddress():
 receiver_address = generateAddress()[0]
 print('receiver address = ' + str(receiver_address))
 
+
 ##########################################
 
 
-#Anchors a hash from from queue1
-#Sends the TxID + hash (json file) in queue2 and errors are sent in errorQueue
+# Anchors a hash from from queue1
+# Sends the TxID + hash (json file) in queue2 and errors are sent in errorQueue
 
-#Runs continuously (check if messages are available in queue1)
-
+# Runs continuously (check if messages are available in queue1)
 
 
 def send(queue, msg):
@@ -80,30 +83,22 @@ def send(queue, msg):
     )
 
 
-
-
 def storeString(string):
     if is_hex(string):
-        # We store the string into message part of the transaction
-        message = TryteString.from_unicode(string)
-        # if message > 2187 Trytes, it is sent in several transactions
-
+        message = TryteString.from_unicode(string)  # if message > 2187 Trytes, it is sent in several transactions
         proposedTransaction = ProposedTransaction(
             address=Address(receiver_address),
             value=0,
             message=message
         )
-
-        # Execution of the transaction
-        transfer = api.send_transfer(
+        transfer = api.send_transfer(  # Execution of the transaction
             depth=depth,
             transfers=[proposedTransaction],
         )
-
         return getTransactionHashes(transfer)
 
     else:
-        return string
+        return False
 
 
 def getTransactionHashes(transfer):
@@ -111,11 +106,6 @@ def getTransactionHashes(transfer):
     for transaction in transfer["bundle"]:  # Bundle of transaction published on the Tangle
         transactionHash.append(transaction.hash)
         print(transaction.address, transaction.hash)
-        #print(transaction.hash)
-
-    inclusionState = api.get_latest_inclusion(transactionHash)
-    #print("latest inclusion state : " + str(inclusionState))
-
     return transactionHash
 
 
@@ -134,20 +124,36 @@ def main(queue_name):
 
 
 def poll(queue):
-    messages = queue.receive_messages(MaxNumberOfMessages=10)         # Note: MaxNumberOfMessages default is 1.
+    messages = queue.receive_messages()  # Note: MaxNumberOfMessages default is 1.
     for m in messages:
-        if type(storeString(m.body)) == str:
-            json_error = json.dumps({"ValueError" : m.body})
-            send(errorQueue, json_error)
-        else:
-            transactionHashes = storeString(m.body)
-            for txid in transactionHashes:          #In case of the anchoring results in several transactions
-                json_data = json.dumps({str(txid) : m.body})
-                send(queue2, json_data)
-        m.delete()
+        process_message(m)
+
+
+def process_message(m):
+    storing = storeString(m.body)
+    if storing == False:
+        json_error = json.dumps({"Not a hash" : m.body})
+        send(errorQueue, json_error)
+    else:
+        transactionHashes = storing
+        for txid in transactionHashes:  # In case of the anchoring results in several transactions
+            json_data = json.dumps({"tx" : str(txid), "hash" : m.body})
+            send(queue2, json_data)
+    m.delete()
 
 
 main(queue1)
 
-
-
+#
+# def poll(queue):
+#     messages = queue.receive_messages()         # Note: MaxNumberOfMessages default is 1.
+#     for m in messages:
+#         if type(storeString(m.body)) == str:
+#             json_error = json.dumps({"ValueError" : m.body})
+#             send(errorQueue, json_error)
+#         else:
+#             transactionHashes = storeString(m.body)
+#             for txid in transactionHashes:          #In case of the anchoring results in several transactions
+#                 json_data = json.dumps({"tx" : str(txid), "hash" : m.body})
+#                 send(queue2, json_data)
+#         m.delete()
