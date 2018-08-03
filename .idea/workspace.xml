@@ -3,10 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="54ecfa54-78b7-456f-9bef-b728bd691b68" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Library/ElasticMQ_Connection.py" beforeDir="false" afterPath="$PROJECT_DIR$/Library/ElasticMQ_Connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/iotaService.py" beforeDir="false" afterPath="$PROJECT_DIR$/iotaService.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/receiver.py" beforeDir="false" afterPath="$PROJECT_DIR$/receiver.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sender.py" beforeDir="false" afterPath="$PROJECT_DIR$/sender.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,8 +27,8 @@
           <file leaf-file-name="iotaService.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/iotaService.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="427">
-                  <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
+                <state relative-caret-position="285">
+                  <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
                   <folding>
                     <element signature="e#17#28#0" expanded="true" />
                   </folding>
@@ -52,8 +48,8 @@
           <file leaf-file-name="sender.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/sender.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="464">
-                  <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+                <state relative-caret-position="585">
+                  <caret line="40" selection-start-line="40" selection-end-line="40" />
                   <folding>
                     <element signature="e#109#119#0" expanded="true" />
                   </folding>
@@ -64,8 +60,8 @@
           <file leaf-file-name="custom.conf" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/elasticMQServer/custom.conf">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="78">
-                  <caret line="25" column="8" lean-forward="true" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="8" />
+                <state relative-caret-position="375">
+                  <caret line="25" column="8" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="8" />
                 </state>
               </provider>
             </entry>
@@ -78,7 +74,7 @@
             <entry file="file://$PROJECT_DIR$/Library/ElasticMQ_Connection.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="315">
-                  <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+                  <caret line="21" selection-start-line="21" selection-end-line="21" />
                 </state>
               </provider>
             </entry>
@@ -86,7 +82,7 @@
           <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/boto3/__init__.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="164">
+                <state relative-caret-position="465">
                   <caret line="33" selection-start-line="33" selection-end-line="33" />
                 </state>
               </provider>
@@ -95,7 +91,7 @@
           <file leaf-file-name="session.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/boto3/session.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="231">
+                <state relative-caret-position="645">
                   <caret line="54" selection-start-line="54" selection-end-line="54" />
                 </state>
               </provider>
@@ -104,7 +100,7 @@
           <file leaf-file-name="copy.py" pinned="false" current-in-tab="false">
             <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/copy.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="171">
+                <state relative-caret-position="1035">
                   <caret line="71" selection-start-line="71" selection-end-line="71" />
                 </state>
               </provider>
@@ -141,8 +137,8 @@
         <option value="$PROJECT_DIR$/oldanchorservice.py" />
         <option value="$PROJECT_DIR$/receiver.py" />
         <option value="$PROJECT_DIR$/sender.py" />
-        <option value="$PROJECT_DIR$/iotaService.py" />
         <option value="$PROJECT_DIR$/Library/ElasticMQ_Connection.py" />
+        <option value="$PROJECT_DIR$/iotaService.py" />
       </list>
     </option>
   </component>
@@ -156,8 +152,8 @@
     <packageJsonPaths />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="607" />
-    <option name="y" value="52" />
+    <option name="x" value="337" />
+    <option name="y" value="25" />
     <option name="width" value="1583" />
     <option name="height" value="991" />
   </component>
@@ -343,17 +339,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="45" y="23" width="1583" height="991" extended-state="0" />
+    <frame x="337" y="25" width="1583" height="991" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49772874" visible="true" weight="0.2147651" />
-      <window_info active="true" anchor="bottom" id="Event Log" order="7" sideWeight="0.50227123" side_tool="true" visible="true" weight="0.2147651" />
+      <window_info active="true" anchor="bottom" id="TODO" order="6" sideWeight="0.49707982" visible="true" weight="0.2147651" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5029202" side_tool="true" visible="true" weight="0.2147651" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Python Console" order="7" sideWeight="0.49520767" weight="0.3273632" />
+      <window_info anchor="bottom" id="Python Console" order="7" sideWeight="0.4944841" weight="0.32662192" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.50227123" side_tool="true" weight="0.2147651" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.5970149" weight="0.2572707" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.059052564" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.5957171" weight="0.2572707" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.05970149" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Find" order="1" />
@@ -574,7 +570,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/boto3/session.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
+        <state relative-caret-position="645">
           <caret line="54" selection-start-line="54" selection-end-line="54" />
         </state>
       </provider>
@@ -588,14 +584,14 @@
     </entry>
     <entry file="file:///System/Library/Frameworks/Python.framework/Versions/2.7/lib/python2.7/copy.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="171">
+        <state relative-caret-position="1035">
           <caret line="71" selection-start-line="71" selection-end-line="71" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/boto3/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="164">
+        <state relative-caret-position="465">
           <caret line="33" selection-start-line="33" selection-end-line="33" />
         </state>
       </provider>
@@ -616,15 +612,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/elasticMQServer/custom.conf">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="78">
-          <caret line="25" column="8" lean-forward="true" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="8" />
+        <state relative-caret-position="375">
+          <caret line="25" column="8" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="8" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/sender.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="40" lean-forward="true" selection-start-line="40" selection-end-line="40" />
+        <state relative-caret-position="585">
+          <caret line="40" selection-start-line="40" selection-end-line="40" />
           <folding>
             <element signature="e#109#119#0" expanded="true" />
           </folding>
@@ -635,26 +631,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-513">
           <caret line="45" column="15" lean-forward="true" selection-start-line="44" selection-start-column="14" selection-end-line="45" selection-end-column="15" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/iotaService.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="427">
-          <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
-          <folding>
-            <element signature="e#17#28#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Library/ElasticMQ_Connection.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/iotaService.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="1" selection-start-line="19" selection-start-column="1" selection-end-line="19" selection-end-column="1" />
+          <folding>
+            <element signature="e#17#28#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
