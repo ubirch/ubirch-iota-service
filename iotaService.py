@@ -116,33 +116,45 @@ def is_hex(s):
     except ValueError:
         return False
 
-
-def main(queue_name):
-    """Continuously polls the queue for messages"""
-    while True:
-        poll(queue=queue_name)
+#
+# def main(queue_name):
+#     """Continuously polls the queue for messages"""
+#     while True:
+#         poll(queue=queue_name)
 
 
 def poll(queue):
+    start = time.time()
     messages = queue.receive_messages()  # Note: MaxNumberOfMessages default is 1.
+    start2 = time.time()
+    print("receiving time : " + str(start2 - start))
     for m in messages:
+        start3 = time.time()
         process_message(m)
-
+        print("processing time = " + str(time.time() - start3))
 
 def process_message(m):
+    a = time.time()
     storing = storeString(m.body)
+    print("storing = " + str(time.time() - a))
     if storing == False:
         json_error = json.dumps({"Not a hash" : m.body})
+        b = time.time()
         send(errorQueue, json_error)
+        print("sending error = " + str(time.time() - b))
+
     else:
         transactionHashes = storing
         for txid in transactionHashes:  # In case of the anchoring results in several transactions
             json_data = json.dumps({"tx" : str(txid), "hash" : m.body})
+            c = time.time()
             send(queue2, json_data)
+            print("sending message= " + str(time.time() - c))
+
     m.delete()
 
 
-main(queue1)
+poll(queue1)
 
 #
 # def poll(queue):
