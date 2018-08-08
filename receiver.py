@@ -25,24 +25,9 @@ aws_access_key_id = args.keyid
 
 queue2 = EMQ.getQueue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
 
-#
-# while True:
-#     start = time.time()
-#     response = queue2.receive_messages()
-#     start2 = time.time()
-#     print("receiving time =  " + str( start2 - start))
-#     for r in response:
-#         print(r.body)
-#         r.delete()
-#         print("deletion time = " + str(time.time() - start2))
 
-
-
-start = time.time()
-response = queue2.receive_messages()
-start2 = time.time()
-print("receiving time =  " + str( start2 - start))
-for r in response:
-    print(r.body)
-    r.delete()
-    print("deletion time = " + str(time.time() - start2))
+while True:
+    response = queue2.receive_messages()
+    for r in response:
+        print(r.body)
+        r.delete()

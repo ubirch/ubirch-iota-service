@@ -116,11 +116,11 @@ def is_hex(s):
     except ValueError:
         return False
 
-#
-# def main(queue_name):
-#     """Continuously polls the queue for messages"""
-#     while True:
-#         poll(queue=queue_name)
+
+def main(queue_name):
+    """Continuously polls the queue for messages"""
+    while True:
+        poll(queue=queue_name)
 
 
 def poll(queue):
@@ -154,18 +154,5 @@ def process_message(m):
     m.delete()
 
 
-poll(queue1)
+main(queue1)
 
-#
-# def poll(queue):
-#     messages = queue.receive_messages()         # Note: MaxNumberOfMessages default is 1.
-#     for m in messages:
-#         if type(storeString(m.body)) == str:
-#             json_error = json.dumps({"ValueError" : m.body})
-#             send(errorQueue, json_error)
-#         else:
-#             transactionHashes = storeString(m.body)
-#             for txid in transactionHashes:          #In case of the anchoring results in several transactions
-#                 json_data = json.dumps({"tx" : str(txid), "hash" : m.body})
-#                 send(queue2, json_data)
-#         m.delete()
