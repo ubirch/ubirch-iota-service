@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54ecfa54-78b7-456f-9bef-b728bd691b68" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,14 +22,14 @@
     <SUITE FILE_PATH="coverage/ubirch_iota_service$oldanchorservice.coverage" NAME="oldanchorservice Coverage Results" MODIFIED="1533113330554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.1">
+    <splitter split-orientation="horizontal" split-proportion="0.3137255">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="iotaService.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/iotaService.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="-1462">
-                  <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="23" />
+                <state relative-caret-position="125">
+                  <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
                   <folding>
                     <element signature="e#17#28#0" expanded="true" />
                   </folding>
@@ -58,8 +57,8 @@
             <entry file="file://$PROJECT_DIR$/README.md">
               <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
                 <state split_layout="SPLIT">
-                  <first_editor relative-caret-position="510">
-                    <caret line="34" column="4" lean-forward="true" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+                  <first_editor relative-caret-position="105">
+                    <caret line="7" column="97" selection-start-line="7" selection-start-column="97" selection-end-line="7" selection-end-column="97" />
                   </first_editor>
                   <second_editor />
                 </state>
@@ -376,8 +375,8 @@
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" sideWeight="0.49627262" weight="0.32571995" />
       <window_info anchor="bottom" x="808" y="368" width="878" height="519" id="Run" order="2" sideWeight="0.488746" visible="true" weight="0.2955056" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.511254" side_tool="true" visible="true" weight="0.2955056" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11446945" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.511254" side_tool="true" visible="true" weight="0.2955056" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11446945" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -660,8 +659,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/iotaService.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1462">
-          <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="23" />
+        <state relative-caret-position="125">
+          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
           <folding>
             <element signature="e#17#28#0" expanded="true" />
           </folding>
@@ -671,8 +670,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="510">
-            <caret line="34" column="4" lean-forward="true" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+          <first_editor relative-caret-position="105">
+            <caret line="7" column="97" selection-start-line="7" selection-start-column="97" selection-end-line="7" selection-end-column="97" />
           </first_editor>
           <second_editor />
         </state>

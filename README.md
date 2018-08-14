@@ -1,8 +1,22 @@
 # ubirch-iota-service
-A small IOTA based anchoring service
+A small IOTA based anchoring service. Master sends the messages one by one while fix_storing sends them in a bundle.
+After a few tests I remarked that sending them one by one seems more time efficient.
+
+The only time consuming operations in this project seems to be the call of api.send_tranfer(...)
+which sends a proposed transaction into the IOTA Tangle.
+
+This projects is using the IOTA testnet. So far the mainnet does not seem to be production ready.
+
+##Documentation and requirements
+This projects uses python 2.7 and the libraries needed are the following :
+pyota, json, sys, random and argparse.
+
+You can find documentation about elasticmq here : https://github.com/adamw/elasticmq 
+
+You can find documentation about pyota here : https://media.readthedocs.org/pdf/pyota/develop/pyota.pdf
 
 
-##How to use this service :
+###How to use this service :
 
 1. Set up the elasticmq server : https://github.com/adamw/elasticmq 
 
