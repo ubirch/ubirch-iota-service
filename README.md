@@ -81,8 +81,9 @@ You can find documentation about pyota here : https://media.readthedocs.org/pdf/
 
 3. Run it with :
 
-    
-    java -Dconfig.file=custom.conf -jar elasticmq-server-x.x.x.jar where x.x.x is the version number you downloaded
+        java -Dconfig.file=custom.conf -jar elasticmq-server-x.x.x.jar
+        
+where x.x.x is the number of the version of elasticMQ
 
 4. Once the server is running, start sender.py which will send via an infinite loop messages to the first queue (queue1). Those messages will mainly be hex strings (hashes) but there will be also be non hex-strings which will be processed as errors by the service.
 
