@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="54ecfa54-78b7-456f-9bef-b728bd691b68" name="Default" comment="" />
+    <list default="true" id="54ecfa54-78b7-456f-9bef-b728bd691b68" name="Default" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -15,19 +18,19 @@
     <SUITE FILE_PATH="coverage/ubirch_iota_service$receiver_errors.coverage" NAME="receiver_errors Coverage Results" MODIFIED="1533829917723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ubirch_iota_service$messagequeues.coverage" NAME="messagequeues Coverage Results" MODIFIED="1532620059401" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ubirch_iota_service$sender.coverage" NAME="sender Coverage Results" MODIFIED="1533829907429" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/ubirch_iota_service$iotaService.coverage" NAME="iotaService Coverage Results" MODIFIED="1533830074682" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/ubirch_iota_service$iotaService.coverage" NAME="iotaService Coverage Results" MODIFIED="1534237311481" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/ubirch_iota_service$ElasticMQ_Connection.coverage" NAME="ElasticMQ_Connection Coverage Results" MODIFIED="1533133266068" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Library" />
     <SUITE FILE_PATH="coverage/ubirch_iota_service$oldanchorservice.coverage" NAME="oldanchorservice Coverage Results" MODIFIED="1533113330554" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.51141554">
+    <splitter split-orientation="horizontal" split-proportion="0.1">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="iotaService.py" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/iotaService.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="468">
-                  <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+                <state relative-caret-position="-1462">
+                  <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="23" />
                   <folding>
                     <element signature="e#17#28#0" expanded="true" />
                   </folding>
@@ -39,14 +42,35 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-          <file leaf-file-name="sender.py" pinned="false" current-in-tab="true">
+          <file leaf-file-name="sender.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/sender.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="467">
-                  <caret line="43" column="33" lean-forward="true" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
+                  <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
                   <folding>
                     <element signature="e#41#51#0" expanded="true" />
                   </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="README.md" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/README.md">
+              <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+                <state split_layout="SPLIT">
+                  <first_editor relative-caret-position="510">
+                    <caret line="34" column="4" lean-forward="true" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+                  </first_editor>
+                  <second_editor />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="custom.conf" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/elasticMQServer/custom.conf">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="135">
+                  <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
                 </state>
               </provider>
             </entry>
@@ -112,7 +136,6 @@
         <option value="$PROJECT_DIR$/colors.json" />
         <option value="$PROJECT_DIR$/sender1.py" />
         <option value="$PROJECT_DIR$/receiver1.py" />
-        <option value="$PROJECT_DIR$/elasticMQServer/custom.conf" />
         <option value="$PROJECT_DIR$/oldanchorservice.py" />
         <option value="$PROJECT_DIR$/Library/ElasticMQ_Connection.py" />
         <option value="$PROJECT_DIR$/mreMqttAdapter.py" />
@@ -121,6 +144,8 @@
         <option value="$PROJECT_DIR$/receiver_errors.py" />
         <option value="$PROJECT_DIR$/receiver.py" />
         <option value="$PROJECT_DIR$/iotaService.py" />
+        <option value="$PROJECT_DIR$/elasticMQServer/custom.conf" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -133,11 +158,11 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds" fullScreen="true">
+  <component name="ProjectFrameBounds">
     <option name="x" value="-3" />
     <option name="y" value="23" />
-    <option name="width" value="1920" />
-    <option name="height" value="987" />
+    <option name="width" value="1597" />
+    <option name="height" value="985" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -151,6 +176,11 @@
             <path>
               <item name="ubirch-iota-service" type="b2602c69:ProjectViewProjectNode" />
               <item name="ubirch-iota-service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="ubirch-iota-service" type="b2602c69:ProjectViewProjectNode" />
+              <item name="ubirch-iota-service" type="462c0819:PsiDirectoryNode" />
+              <item name="elasticMQServer" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -337,16 +367,17 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="0" />
+    <frame x="-3" y="23" width="1597" height="985" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49627262" weight="0.19066535" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5026624" side_tool="true" weight="0.19104478" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" sideWeight="0.49627262" weight="0.32571995" />
-      <window_info active="true" anchor="bottom" x="808" y="368" width="878" height="519" id="Run" order="2" sideWeight="0.48935038" visible="true" weight="0.2959285" />
-      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.5106496" side_tool="true" visible="true" weight="0.2959285" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.094249204" />
+      <window_info anchor="bottom" x="808" y="368" width="878" height="519" id="Run" order="2" sideWeight="0.488746" visible="true" weight="0.2955056" />
+      <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.511254" side_tool="true" visible="true" weight="0.2955056" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.11446945" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -365,24 +396,24 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15282215" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49627262" weight="0.19066535" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info active="true" anchor="bottom" x="808" y="368" width="878" height="519" id="Run" order="2" sideWeight="0.49307775" visible="true" weight="0.32735425" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4968051" weight="0.32571995" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.50692225" side_tool="true" visible="true" weight="0.32735425" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5026624" side_tool="true" weight="0.19104478" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="right" id="SciView" order="4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49520767" weight="0.3962264" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4968051" weight="0.32571995" />
+      <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -400,13 +431,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/receiver.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" column="38" selection-start-line="8" selection-start-column="38" selection-end-line="8" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/mreMqttAdapter.py" />
     <entry file="file://$PROJECT_DIR$/iotaService.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -516,13 +540,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/elasticMQServer/custom.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="25" column="8" selection-start-line="25" selection-start-column="2" selection-end-line="25" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/venv/lib/python2.7/site-packages/boto3/__init__.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
@@ -624,23 +641,40 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/sender.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="467">
+          <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
+          <folding>
+            <element signature="e#41#51#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/elasticMQServer/custom.conf">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/iotaService.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="468">
-          <caret line="55" lean-forward="true" selection-start-line="55" selection-end-line="55" />
+        <state relative-caret-position="-1462">
+          <caret line="23" column="22" selection-start-line="23" selection-start-column="22" selection-end-line="23" selection-end-column="23" />
           <folding>
             <element signature="e#17#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sender.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="43" column="33" lean-forward="true" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
-          <folding>
-            <element signature="e#41#51#0" expanded="true" />
-          </folding>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
+        <state split_layout="SPLIT">
+          <first_editor relative-caret-position="510">
+            <caret line="34" column="4" lean-forward="true" selection-start-line="34" selection-start-column="4" selection-end-line="34" selection-end-column="4" />
+          </first_editor>
+          <second_editor />
         </state>
       </provider>
     </entry>
