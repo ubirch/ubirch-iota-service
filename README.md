@@ -7,7 +7,7 @@ which sends a proposed transaction into the IOTA Tangle.
 
 This projects is using the IOTA testnet. So far the mainnet does not seem to be production ready.
 
-##Documentation and requirements
+## Documentation and requirements
 This projects uses python 2.7 and the libraries needed are the following :
 pyota, json, sys, random and argparse.
 
@@ -16,68 +16,68 @@ You can find documentation about elasticmq here : https://github.com/adamw/elast
 You can find documentation about pyota here : https://media.readthedocs.org/pdf/pyota/develop/pyota.pdf
 
 
-##How to use this service :
+## How to use this service :
 
 1. Set up the elasticmq server : https://github.com/adamw/elasticmq 
 
 2. Create a custom.conf so it looks like this :
 
 
-    include classpath("application.conf")
+        include classpath("application.conf")
 
-    // What is the outside visible address of this ElasticMQ node
-    // Used to create the queue URL (may be different from bind address!)
-    node-address {
-        protocol = http
-        host = localhost
-        port = 9324
-        context-path = ""
-    }
-    
-    rest-sqs {
-        enabled = true
-        bind-port = 9324
-        bind-hostname = "0.0.0.0"
-        // Possible values: relaxed, strict
-        sqs-limits = strict
-    }
-    
-    // Should the node-address be generated from the bind port/hostname
-    // Set this to true e.g. when assigning port automatically by using port 0.
-    generate-node-address = false
-    
-    
-    queues {
-    
-    
-      queue1 {
-        defaultVisibilityTimeout = 10 seconds
-        receiveMessageWait = 0 seconds
-        deadLettersQueue {
-            name = "queue1-dead-letters"
-            maxReceiveCount = 10 // from 1 to 1000
+        // What is the outside visible address of this ElasticMQ node
+        // Used to create the queue URL (may be different from bind address!)
+        node-address {
+            protocol = http
+            host = localhost
+            port = 9324
+            context-path = ""
         }
-      }
-    
-        queue2 {
-        defaultVisibilityTimeout = 10 seconds
-        receiveMessageWait = 0 seconds
-        deadLettersQueue {
-            name = "queue2-dead-letters"
-            maxReceiveCount = 10 // from 1 to 1000
+
+        rest-sqs {
+            enabled = true
+            bind-port = 9324
+            bind-hostname = "0.0.0.0"
+            // Possible values: relaxed, strict
+            sqs-limits = strict
         }
-      }
-    
-        errorQueue {
-        defaultVisibilityTimeout = 10 seconds
-        receiveMessageWait = 0 seconds
-        deadLettersQueue {
-            name = "errorQueue-dead-letters"
-            maxReceiveCount = 10 // from 1 to 1000
+
+        // Should the node-address be generated from the bind port/hostname
+        // Set this to true e.g. when assigning port automatically by using port 0.
+        generate-node-address = false
+
+
+        queues {
+
+
+          queue1 {
+            defaultVisibilityTimeout = 10 seconds
+            receiveMessageWait = 0 seconds
+            deadLettersQueue {
+                name = "queue1-dead-letters"
+                maxReceiveCount = 10 // from 1 to 1000
+            }
+          }
+
+            queue2 {
+            defaultVisibilityTimeout = 10 seconds
+            receiveMessageWait = 0 seconds
+            deadLettersQueue {
+                name = "queue2-dead-letters"
+                maxReceiveCount = 10 // from 1 to 1000
+            }
+          }
+
+            errorQueue {
+            defaultVisibilityTimeout = 10 seconds
+            receiveMessageWait = 0 seconds
+            deadLettersQueue {
+                name = "errorQueue-dead-letters"
+                maxReceiveCount = 10 // from 1 to 1000
+            }
+          }
+
         }
-      }
-    
-    }
 
 3. Run it with :
 
