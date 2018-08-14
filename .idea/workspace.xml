@@ -29,7 +29,7 @@
             <entry file="file://$PROJECT_DIR$/iotaService.py">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="125">
-                  <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+                  <caret line="29" selection-start-line="29" selection-end-line="29" />
                   <folding>
                     <element signature="e#17#28#0" expanded="true" />
                   </folding>
@@ -44,7 +44,7 @@
           <file leaf-file-name="sender.py" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/sender.py">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="467">
+                <state relative-caret-position="645">
                   <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
                   <folding>
                     <element signature="e#41#51#0" expanded="true" />
@@ -57,8 +57,8 @@
             <entry file="file://$PROJECT_DIR$/README.md">
               <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
                 <state split_layout="SPLIT">
-                  <first_editor relative-caret-position="105">
-                    <caret line="7" column="97" selection-start-line="7" selection-start-column="97" selection-end-line="7" selection-end-column="97" />
+                  <first_editor relative-caret-position="254">
+                    <caret line="18" column="2" lean-forward="true" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
                   </first_editor>
                   <second_editor />
                 </state>
@@ -69,7 +69,7 @@
             <entry file="file://$PROJECT_DIR$/elasticMQServer/custom.conf">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="135">
-                  <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+                  <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
                 </state>
               </provider>
             </entry>
@@ -157,7 +157,7 @@
   <component name="NodePackageJsonFileManager">
     <packageJsonPaths />
   </component>
-  <component name="ProjectFrameBounds">
+  <component name="ProjectFrameBounds" fullScreen="true">
     <option name="x" value="-3" />
     <option name="y" value="23" />
     <option name="width" value="1597" />
@@ -169,6 +169,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -185,7 +186,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -374,9 +374,9 @@
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" order="7" sideWeight="0.49627262" weight="0.32571995" />
-      <window_info anchor="bottom" x="808" y="368" width="878" height="519" id="Run" order="2" sideWeight="0.488746" visible="true" weight="0.2955056" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.511254" side_tool="true" visible="true" weight="0.2955056" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.11446945" />
+      <window_info anchor="bottom" x="808" y="368" width="878" height="519" id="Run" order="2" sideWeight="0.488746" weight="0.2955056" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="7" sideWeight="0.511254" side_tool="true" visible="true" weight="0.29495615" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.115755625" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="right" id="SciView" order="3" />
@@ -395,24 +395,24 @@
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15282215" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49627262" weight="0.19066535" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info active="true" anchor="bottom" x="808" y="368" width="878" height="519" id="Run" order="2" sideWeight="0.49307775" visible="true" weight="0.32735425" />
-      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4968051" weight="0.32571995" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="right" id="Database" order="3" />
       <window_info anchor="bottom" id="Terminal" order="11" sideWeight="0.50692225" side_tool="true" visible="true" weight="0.32735425" />
       <window_info anchor="bottom" id="Event Log" order="12" sideWeight="0.5026624" side_tool="true" weight="0.19104478" />
       <window_info anchor="bottom" id="Database Changes" order="9" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="right" id="SciView" order="4" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49520767" weight="0.3962264" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Python Console" order="10" sideWeight="0.4968051" weight="0.32571995" />
     </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -642,7 +642,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sender.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
+        <state relative-caret-position="645">
           <caret line="43" column="33" selection-start-line="43" selection-start-column="33" selection-end-line="43" selection-end-column="33" />
           <folding>
             <element signature="e#41#51#0" expanded="true" />
@@ -653,14 +653,14 @@
     <entry file="file://$PROJECT_DIR$/elasticMQServer/custom.conf">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="135">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <caret line="9" column="1" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/iotaService.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="125">
-          <caret line="29" lean-forward="true" selection-start-line="29" selection-end-line="29" />
+          <caret line="29" selection-start-line="29" selection-end-line="29" />
           <folding>
             <element signature="e#17#28#0" expanded="true" />
           </folding>
@@ -670,8 +670,8 @@
     <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="105">
-            <caret line="7" column="97" selection-start-line="7" selection-start-column="97" selection-end-line="7" selection-end-column="97" />
+          <first_editor relative-caret-position="254">
+            <caret line="18" column="2" lean-forward="true" selection-start-line="18" selection-start-column="2" selection-end-line="18" selection-end-column="2" />
           </first_editor>
           <second_editor />
         </state>

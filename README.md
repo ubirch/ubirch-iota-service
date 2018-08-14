@@ -16,7 +16,7 @@ You can find documentation about elasticmq here : https://github.com/adamw/elast
 You can find documentation about pyota here : https://media.readthedocs.org/pdf/pyota/develop/pyota.pdf
 
 
-###How to use this service :
+##How to use this service :
 
 1. Set up the elasticmq server : https://github.com/adamw/elasticmq 
 
