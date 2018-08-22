@@ -1,8 +1,8 @@
 # ubirch-iota-service
 A small IOTA based anchoring service. Master sends the messages one by one while fix_storing sends them in a bundle.
-After a few tests I remarked that sending them one by one seems more time efficient.
+After a few tests I remarked that sending them one by one seemed more time efficient.
 
-The only time consuming operations in this project seems to be the call of api.send_tranfer(...)
+The only time consuming operation in this project seems to be the call of api.send_tranfer(...)
 which sends a proposed transaction into the IOTA Tangle.
 
 This projects is using the IOTA testnet. So far the mainnet does not seem to be production ready.
