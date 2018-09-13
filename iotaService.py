@@ -50,7 +50,6 @@ seed = b'OF9JOIDX9NVXPQUNQLHVBBNKNBVQGMWHIRZBGWJOJLRGQKFMUMZFGAAEQZPXSWVIEBICOBK
 depth = 6
 uri = 'https://nodes.devnet.iota.org:443'
 api = Iota(uri, seed=seed)
-print("node info : " + str(api.get_node_info()))
 
 
 def generateAddress():
@@ -61,12 +60,6 @@ def generateAddress():
 
 receiver_address = generateAddress()[0]
 print('receiver address = ' + str(receiver_address))
-
-
-# Anchors a hash from queue1
-# Sends the TxID + hash (json file) in queue2 and errors are sent in errorQueue
-# Runs continuously (check if messages are available in queue1)
-
 
 
 # We assume the string will not exceed 2187 Trytes as it is supposed to be a hash with a short fixed length
@@ -85,9 +78,9 @@ def storeStringIOTA(string):
         )
 
         txhash = str(getTransactionHashes(transfer)[0])
-        print({'txid': txhash, 'message': string})
+        print({'status': 'added', 'txid': txhash, 'message': string})
 
-        return {'txid': txhash, 'message': string}
+        return {'status': 'added', 'txid': txhash, 'message': string}
 
     else:
         return False
