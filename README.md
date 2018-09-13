@@ -4,7 +4,7 @@ A small IOTA based anchoring service. Master sends the messages one by one while
 This projects is using the IOTA testnet. So far the mainnet does not seem to be production ready.
 
 # Configuration
-This projects uses python 3.7. <br>
+This projects uses python 2.7. <br>
 Please run in your virtual environment:
 
         pip install -r requirements.txt
