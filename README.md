@@ -9,7 +9,7 @@ Please run in your virtual environment:
 
         pip install -r requirements.txt
        
-Moreover, [Elasticmq](https://github.com/adamw/elasticmq) and [Geth](https://github.com/ethereum/go-ethereum) need to be properly installed.
+Moreover, [Elasticmq](https://github.com/adamw/elasticmq) needs to be properly installed.
 This projects mainly uses [pyota](https://media.readthedocs.org/pdf/pyota/develop/pyota.pdf)
 
 ## How to use this service :
