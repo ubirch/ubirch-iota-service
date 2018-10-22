@@ -17,28 +17,19 @@
 
 import random
 from ubirch.anchoring import *
+
 from iota import TryteString
 from iota import Iota
 from iota import Address
 from iota import ProposedTransaction
 
-from kafka import KafkaConsumer # TO DO :Integrate the package in ubirch-python-utils
+# TODO :Integrate the package in ubirch-python-utils
+
+from kafka import KafkaConsumer
 from kafka import KafkaProducer
 
 
-args = set_arguments("IOTA")
 
-url = args.url
-region = args.region
-aws_secret_access_key = args.accesskey
-aws_access_key_id = args.keyid
-
-queue1 = getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
-queue2 = getQueue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
-errorQueue = getQueue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
-
-
-# TODO: WALLET MANAGEMENT
 
 
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'  # Used to generate the seed

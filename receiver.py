@@ -17,20 +17,14 @@
 
 from ubirch.anchoring import *
 
-
+from kafka import KafkaConsumer
 args = set_arguments("IOTA")
-url = args.url
-region = args.region
-aws_secret_access_key = args.accesskey
-aws_access_key_id = args.keyid
+port = args.port
+topic = args.topic
 
-queue2 = getQueue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
-
-while True:
-    response = queue2.receive_messages()
-    for r in response:
-        print(r.body)
-        r.delete()
+consumer = KafkaConsumer(topic)
+for msg in consumer:
+    print (msg.value)
 
 
 
