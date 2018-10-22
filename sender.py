@@ -19,13 +19,19 @@ from ubirch.anchoring import *
 import time
 import hashlib
 
-args = set_arguments("IOTA")
-url = args.url
-region = args.region
-aws_secret_access_key = args.accesskey
-aws_access_key_id = args.keyid
+from kafka import KafkaProducer
+from kafka.errors import KafkaError
 
-queue1 = getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
+
+# args = set_arguments("IOTA")
+# url = args.url
+# region = args.region
+# aws_secret_access_key = args.accesskey
+# aws_access_key_id = args.keyid
+#
+# queue1 = getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
+
+producer = KafkaProducer(bootstrap_servers='localhost:1234')
 
 i = 1
 j = 1

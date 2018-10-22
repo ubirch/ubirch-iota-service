@@ -22,6 +22,9 @@ from iota import Iota
 from iota import Address
 from iota import ProposedTransaction
 
+from kafka import KafkaConsumer # TO DO :Integrate the package in ubirch-python-utils
+from kafka import KafkaProducer
+
 
 args = set_arguments("IOTA")
 
