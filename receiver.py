@@ -15,15 +15,13 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ubirch.anchoring import *
+from library import *
 
-from kafka import KafkaConsumer
 args = set_arguments("IOTA")
 port = args.port
-topic = args.topic
+queue2 = consumerInstance('queue2', port)
 
-consumer = KafkaConsumer(topic)
-for msg in consumer:
+for msg in queue2:
     print (msg.value)
 
 

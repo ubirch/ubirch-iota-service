@@ -15,30 +15,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ubirch.anchoring import *
 import time
 import hashlib
 
-from kafka import KafkaProducer
-
+from library import *
 
 args = set_arguments("IOTA")
 port = args.port
 
-producer = KafkaProducer(bootstrap_servers='localhost:9092')
-
-def publish_message(producer, topic_name, value):
-    try:
-        value_bytes = bytes(value)
-        producer.send(topic_name, value=value_bytes)
-        producer.flush()
-
-    except Exception as ex:
-
-        print('Exception in publishing message')
-        print(str(ex))
-
-
+producer = producerInstance(port)
 
 
 i = 1
@@ -47,13 +32,13 @@ while True:
     t = str(time.time()).encode('utf-8')
     message = hashlib.sha256(t).hexdigest()
     if '0' in message[0:8]:                 # Error propagation in queue1
-        publish_message(producer, "errorQueue", "error %s" %i)
+        send(producer, "queue1", "error %s" %i)
         print("error %s sent" %i)
         i += 1
-        time.sleep(0.1)
+        time.sleep(1)
 
     else:                                   # Sends in queue1 the sha256 hash of the time()
-        publish_message(producer, 'queue1', message)
+        send(producer, 'queue1', message)
         print("message %s sent" % j)
         j += 1
-        time.sleep(0.1)
+        time.sleep(1)

@@ -15,19 +15,25 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import random
-from ubirch.anchoring import *
 
 from iota import TryteString
 from iota import Iota
 from iota import Address
 from iota import ProposedTransaction
+import random
 
 # TODO :Integrate the package in ubirch-python-utils
 
-from kafka import KafkaConsumer
-from kafka import KafkaProducer
 
+from library import *
+
+args = set_arguments("IOTA")
+port = args.port
+
+producer = producerInstance(port)
+queue1 = consumerInstance('queue1', port)
+queue2 = consumerInstance('queue2', port)
+errorQueue = consumerInstance('errorQueue', port)
 
 
 
@@ -44,6 +50,7 @@ seed = b'OF9JOIDX9NVXPQUNQLHVBBNKNBVQGMWHIRZBGWJOJLRGQKFMUMZFGAAEQZPXSWVIEBICOBK
 depth = 6
 uri = 'https://nodes.devnet.iota.org:443'
 api = Iota(uri, seed=seed)
+print(api.get_node_info())
 
 
 def generateAddress():
@@ -90,8 +97,6 @@ def getTransactionHashes(transfer):
 def main(storefunction):
     """Continuously polls the queue for messages"""
     while True:
-        poll(queue1, errorQueue, queue2, storefunction)
-
+        poll(queue1, errorQueue, queue2, storefunction, producer)
 
 main(storeStringIOTA)
-
