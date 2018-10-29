@@ -1,3 +1,4 @@
+# temporary lib used until integration in ubirch-python-utils
 
 from kafka import *
 import json
