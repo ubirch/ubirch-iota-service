@@ -22,6 +22,11 @@ from library import *
 
 args = set_arguments("IOTA")
 port = args.port
+rpcuser = args.rpcuser
+rpcpasswd = args.rpcpasswd
+rpchost = args.rpchost
+rpcport = args.rpcport
+chainname = args.chainname
 
 producer = producerInstance(port)
 

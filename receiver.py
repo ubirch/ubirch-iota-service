@@ -19,10 +19,16 @@ from library import *
 
 args = set_arguments("IOTA")
 port = args.port
+rpcuser = args.rpcuser
+rpcpasswd = args.rpcpasswd
+rpchost = args.rpchost
+rpcport = args.rpcport
+chainname = args.chainname
+
 queue2 = consumerInstance('queue2', port)
 
 for msg in queue2:
-    print (msg.value)
+    print(msg.value)
 
 
 
