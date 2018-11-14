@@ -23,7 +23,7 @@ from iota import ProposedTransaction
 import random
 
 
-from ubirch.anchoring_kafka import *
+from lib4debug import *
 
 args = set_arguments("IOTA")
 port = args.port
@@ -97,10 +97,10 @@ def main(storefunction):
     while True:
         poll(queue1, errorQueue, queue2, storefunction, producer)
 
+
 #main(storeStringIOTA)
-#poll(queue1, errorQueue, queue2, storeStringIOTA, producer)
 
 process_message("0x123456789", errorQueue, queue2, storeStringIOTA, producer)
 
-process_message("error", errorQueue, queue2, storeStringIOTA, producer)
+process_message("0x12346798", errorQueue, queue2, storeStringIOTA, producer)
 
