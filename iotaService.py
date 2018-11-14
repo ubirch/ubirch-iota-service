@@ -16,7 +16,7 @@
 # limitations under the License.
 
 import random
-from ubirch.anchoring import *
+from ubirch.anchoring_SQS import *
 from iota import TryteString
 from iota import Iota
 from iota import Address
