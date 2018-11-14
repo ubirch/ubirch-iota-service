@@ -15,7 +15,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from library import *
+from ubirch.anchoring_kafka import *
 args = set_arguments("IOTA")
 port = args.port
 errorQueue = consumerInstance('errorQueue', port)

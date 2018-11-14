@@ -22,14 +22,11 @@ from iota import Address
 from iota import ProposedTransaction
 import random
 
-# TODO :Integrate the package in ubirch-python-utils
 
-
-from library import *
+from ubirch.anchoring_kafka import *
 
 args = set_arguments("IOTA")
 port = args.port
-
 producer = producerInstance(port)
 queue1 = consumerInstance('queue1', port)
 queue2 = consumerInstance('queue2', port)
@@ -45,6 +42,7 @@ def generateSeed():
     for i in range(81): seed += random.choice(chars)
     return seed
 
+# TODO : Wallet management
 
 seed = b'OF9JOIDX9NVXPQUNQLHVBBNKNBVQGMWHIRZBGWJOJLRGQKFMUMZFGAAEQZPXSWVIEBICOBKHAPWYWHAUF'
 depth = 6
@@ -99,4 +97,10 @@ def main(storefunction):
     while True:
         poll(queue1, errorQueue, queue2, storefunction, producer)
 
-main(storeStringIOTA)
+#main(storeStringIOTA)
+#poll(queue1, errorQueue, queue2, storeStringIOTA, producer)
+
+process_message("0x123456789", errorQueue, queue2, storeStringIOTA, producer)
+
+process_message("error", errorQueue, queue2, storeStringIOTA, producer)
+

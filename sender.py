@@ -18,7 +18,7 @@
 import time
 import hashlib
 
-from library import *
+from ubirch.anchoring_kafka import *
 
 args = set_arguments("IOTA")
 port = args.port
@@ -38,7 +38,7 @@ while True:
         time.sleep(1)
 
     else:                                   # Sends in queue1 the sha256 hash of the time()
-        send(producer, 'queue1', message)
+        send(producer, "queue1", message)
         print("message %s sent" % j)
         j += 1
         time.sleep(1)
