@@ -19,10 +19,10 @@ from ubirch.anchoring_kafka import *
 
 args = set_arguments("IOTA")
 port = args.port
-queue2 = consumerInstance('queue2', port)
+queue2 = KafkaConsumer('queue2', bootstrap_servers=port, value_deserializer=lambda m: json.loads(m.decode('ascii')))
 
 for msg in queue2:
-    print(msg.value)
+    print(json.dumps(msg.value))
 
 
 

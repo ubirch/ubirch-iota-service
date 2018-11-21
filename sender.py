@@ -23,7 +23,7 @@ from ubirch.anchoring_kafka import *
 args = set_arguments("IOTA")
 port = args.port
 
-producer = producerInstance(port)
+producer = KafkaProducer(bootstrap_servers=port)
 
 
 i = 1

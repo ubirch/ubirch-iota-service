@@ -1,5 +1,7 @@
 # coding: utf-8
-
+#
+# @author Victor Patrin
+#
 # Copyright (c) 2018 ubirch GmbH.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -8,7 +10,7 @@
 #
 # http://www.apache.org/licenses/LICENSE-2.0
 #
-
+#
 # Unless required by applicable law or agreed to in writing, software
 # distributed under the License is distributed on an "AS IS" BASIS,
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -21,16 +23,16 @@ from iota import Iota
 from iota import Address
 from iota import ProposedTransaction
 import random
-
+from kafka import *
 
 from lib4debug import *
 
 args = set_arguments("IOTA")
 port = args.port
-producer = producerInstance(port)
-queue1 = consumerInstance('queue1', port)
-queue2 = consumerInstance('queue2', port)
-errorQueue = consumerInstance('errorQueue', port)
+producer = KafkaProducer(bootstrap_servers=port)
+queue1 = KafkaConsumer('queue1', bootstrap_servers=port)
+# queue2 = consumerInstance('queue2', port)
+# errorQueue = consumerInstance('errorQueue', port)
 
 
 
@@ -95,12 +97,7 @@ def getTransactionHashes(transfer):
 def main(storefunction):
     """Continuously polls the queue for messages"""
     while True:
-        poll(queue1, errorQueue, queue2, storefunction, producer)
+        poll(queue1, 'errorQueue', 'queue2', storefunction, producer)
 
 
-#main(storeStringIOTA)
-
-process_message("0x123456789", errorQueue, queue2, storeStringIOTA, producer)
-
-process_message("0x12346798", errorQueue, queue2, storeStringIOTA, producer)
-
+main(storeStringIOTA)
