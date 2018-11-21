@@ -18,7 +18,7 @@ This projects mainly uses [pyota](https://media.readthedocs.org/pdf/pyota/develo
 
 1. Set up the kafka server.
 
-2. Launch the server ( ./start-zookeeper.sh anc ./start-kafka.sh in bin/). Topic creation : ./create-all-topics.sh
+2. Launch the server ( ./start-zookeeper.sh anc ./start-kafka.sh in bin/kafka). Topic creation : ./create-all-topics.sh
 
 4. Once the server is running, start sender.py which will send via an infinite loop messages to the first queue (queue1). Those messages will mainly be hex strings (hashes) but there will be also be non hex-strings which will be processed as errors by the service.
 
