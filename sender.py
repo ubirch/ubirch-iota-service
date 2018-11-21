@@ -17,8 +17,9 @@
 
 import time
 import hashlib
-
 from ubirch.anchoring_kafka import *
+from kafka import *
+
 
 args = set_arguments("IOTA")
 port = args.port

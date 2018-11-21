@@ -23,9 +23,9 @@ from iota import Iota
 from iota import Address
 from iota import ProposedTransaction
 import random
+from ubirch.anchoring_kafka import *
 from kafka import *
 
-from lib4debug import *
 
 args = set_arguments("IOTA")
 port = args.port
