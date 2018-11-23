@@ -31,11 +31,6 @@ args = set_arguments("IOTA")
 port = args.port
 producer = KafkaProducer(bootstrap_servers=port)
 queue1 = KafkaConsumer('queue1', bootstrap_servers=port)
-# queue2 = consumerInstance('queue2', port)
-# errorQueue = consumerInstance('errorQueue', port)
-
-
-
 
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'  # Used to generate the seed
 # Seed generator
