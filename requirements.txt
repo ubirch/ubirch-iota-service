@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 ubirch-python-utils >= 1.0.7
+=======
+ubirch-python-utils >= 1.0.6
+>>>>>>> 5a717c8e1a2e19dd855ddbb2f9aeee9f017a97d8
 pyota >= 2.0.6
