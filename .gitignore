@@ -5,6 +5,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# Kafka logs
+kafka_2.11-2.0.0/logs
+
 # C extensions
 *.so
 
