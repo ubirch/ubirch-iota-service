@@ -19,6 +19,7 @@ from ubirch.anchoring_SQS import *
 import time
 import hashlib
 
+# SQS server credentials
 args = set_arguments("IOTA")
 url = args.url
 region = args.region
@@ -37,7 +38,6 @@ while True:
         print("error %s sent" %i)
         i += 1
 
-    else:                                   # Sends in queue1 the sha256 hash of the time()
         send(queue1, message)
         print("message %s sent" % j)
         j += 1
