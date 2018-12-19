@@ -1,7 +1,5 @@
 # ubirch-iota-service
-A small IOTA based anchoring service. Master sends the messages one by one while fix_storing sends them in a bundle.
-
-This projects is using the IOTA testnet. So far the mainnet does not seem to be production ready.
+A small IOTA based anchoring service. This projects is using the IOTA testnet.
 
 # Configuration
 This projects uses python 2.7. <br>

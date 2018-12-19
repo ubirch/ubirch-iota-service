@@ -21,22 +21,30 @@ from iota import Iota
 from iota import Address
 from iota import ProposedTransaction
 
-from ubirch.anchoring_SQS import *
+from lib import *
+from kafka import *
 
 args = set_arguments("IOTA")
+server = args.server
 
-url = args.url
-region = args.region
-aws_secret_access_key = args.accesskey
-aws_access_key_id = args.keyid
+if server == 'SQS':
+    print("SERVICE USING SQS QUEUE MESSAGING")
+    url = args.url
+    region = args.region
+    aws_secret_access_key = args.accesskey
+    aws_access_key_id = args.keyid
+    queue1 = getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
+    queue2 = getQueue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
+    errorQueue = getQueue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
+    producer=None
 
-queue1 = getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
-queue2 = getQueue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
-errorQueue = getQueue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
-
-
-# TODO: WALLET MANAGEMENT
-
+elif server == 'KAFKA':
+    print("SERVICE USING APACHE KAFKA FOR MESSAGING")
+    port = args.port
+    producer = KafkaProducer(bootstrap_servers=port)
+    queue1 = KafkaConsumer('queue1', bootstrap_servers=port)
+    queue2=None
+    errorQueue=None
 
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'  # Used to generate the seed
 # Seed generator
@@ -50,6 +58,7 @@ seed = b'OF9JOIDX9NVXPQUNQLHVBBNKNBVQGMWHIRZBGWJOJLRGQKFMUMZFGAAEQZPXSWVIEBICOBK
 depth = 6
 uri = 'https://nodes.devnet.iota.org:443'
 api = Iota(uri, seed=seed)
+print(api.get_node_info())
 
 
 def generateAddress():
@@ -83,6 +92,7 @@ def storeStringIOTA(string):
         return {'status': 'added', 'txid': txhash, 'message': string}
 
     else:
+        print(False)
         return False
 
 
@@ -96,8 +106,7 @@ def getTransactionHashes(transfer):
 def main(storefunction):
     """Continuously polls the queue for messages"""
     while True:
-        poll(queue1, errorQueue, queue2, storefunction)
+        poll(queue1, errorQueue, queue2, storefunction, server, producer)
 
 
-main(storeStringIOTA)
-
+storeStringIOTA('0x123456')

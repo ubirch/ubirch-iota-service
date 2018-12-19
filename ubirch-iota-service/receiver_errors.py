@@ -15,20 +15,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ubirch.anchoring_SQS import *
-
+from lib import *
+from kafka import *
 
 args = set_arguments("IOTA")
-url = args.url
-region = args.region
-aws_secret_access_key = args.accesskey
-aws_access_key_id = args.keyid
+server = args.server
 
-errorQueue = getQueue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
+if server == 'SQS':
+    print("SERVICE USING SQS QUEUE MESSAGING")
+    url = args.url
+    region = args.region
+    aws_secret_access_key = args.accesskey
+    aws_access_key_id = args.keyid
+    errorQueue = getQueue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
+    producer=None
 
-while True:
-    errors = errorQueue.receive_messages()
-    for e in errors:
-        print(e.body)
-        e.delete()
+    while True:
+        errors = errorQueue.receive_messages()
+        for e in errors:
+            print(e.body)
+            e.delete()
+
+
+elif server == 'KAFKA':
+    print("SERVICE USING APACHE KAFKA FOR MESSAGING")
+    port = args.port
+    producer = KafkaProducer(bootstrap_servers=port)
+    errorQueue = KafkaConsumer('errorQueue', bootstrap_servers=port, value_deserializer=lambda m: json.loads(m.decode('ascii')))
+    for message in errorQueue:
+        print(json.dumps(message.value))
+
 

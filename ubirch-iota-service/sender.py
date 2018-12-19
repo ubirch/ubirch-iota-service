@@ -15,29 +15,43 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from ubirch.anchoring_SQS import *
 import time
 import hashlib
+from lib import *
+from kafka import *
 
-# SQS server credentials
 args = set_arguments("IOTA")
-url = args.url
-region = args.region
-aws_secret_access_key = args.accesskey
-aws_access_key_id = args.keyid
+server = args.server
 
-queue1 = getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
+if server == 'SQS':
+    print("SERVICE USING SQS QUEUE MESSAGING")
+    url = args.url
+    region = args.region
+    aws_secret_access_key = args.accesskey
+    aws_access_key_id = args.keyid
+    queue1 = getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
+    producer=None
+
+elif server == 'KAFKA':
+    print("SERVICE USING APACHE KAFKA FOR MESSAGING")
+    port = args.port
+    producer = KafkaProducer(bootstrap_servers=port)
+    queue1 = None
 
 i = 1
 j = 1
 while True:
     t = str(time.time()).encode('utf-8')
     message = hashlib.sha256(t).hexdigest()
-    if '0' in message[0:8]:                 # Error propagation in queue1
-        send(queue1, "error %s" %i)
-        print("error %s sent" %i)
+    if '0' in message[0:8]:  # Error propagation in queue1
+        send("error %s" % i, server, queue=queue1, topic='queue1', producer=producer)
+        print("error %s sent" % i)
         i += 1
+        time.sleep(1)
 
-        send(queue1, message)
+    else:  # Sends in queue1 the sha256 hash of the time()
+        send(message,  server, queue=queue1, topic='queue1', producer=producer)
         print("message %s sent" % j)
         j += 1
+        time.sleep(1)
+
