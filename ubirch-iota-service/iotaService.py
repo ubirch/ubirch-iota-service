@@ -75,6 +75,7 @@ print('receiver address = ' + str(receiver_address))
 
 def storeStringIOTA(string):
     if is_hex(string):
+        print(string)
         message = TryteString.from_unicode(string) # Note: if message > 2187 Trytes, it is sent in several transactions
         proposedTransaction = ProposedTransaction(
             address=Address(receiver_address),
@@ -108,4 +109,4 @@ def main(storefunction):
     while True:
         poll(queue1, errorQueue, queue2, storefunction, server, producer)
 
-storeStringIOTA('0x54653')
+main(storeStringIOTA)

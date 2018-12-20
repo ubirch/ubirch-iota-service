@@ -112,9 +112,9 @@ def send(message, server, queue=None, topic=None, producer=None):
 
 
 def process_message(message, server, errorQueue, queue2, storefunction, producer):
-        storingResult = storefunction(message.body)
+        storingResult = storefunction(message)
         if storingResult == False:
-            json_error = json.dumps({"Not a hash": message.body})
+            json_error = json.dumps({"Not a hash": message})
             send(json_error, server, queue=errorQueue, topic='errorQueue', producer=producer)
 
         elif storingResult['status'] == 'timeout':  # For Ethereum
@@ -148,7 +148,8 @@ def poll(queue1, errorQueue, queue2, storefunction, server, producer):
     if server == 'SQS':
         messages = queue1.receive_messages()  # Note: MaxNumberOfMessages default is 1.
         for m in messages:
-            process_message(m, server, errorQueue, queue2, storefunction, producer)
+            message = m.body
+            process_message(message, server, errorQueue, queue2, storefunction, producer)
     elif server == 'KAFKA':
         for m in queue1:
             message = m.value.decode('utf-8')
