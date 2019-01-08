@@ -58,7 +58,6 @@ seed = b'OF9JOIDX9NVXPQUNQLHVBBNKNBVQGMWHIRZBGWJOJLRGQKFMUMZFGAAEQZPXSWVIEBICOBK
 depth = 6
 uri = 'https://nodes.devnet.iota.org:443'
 api = Iota(uri, seed=seed)
-print(api.get_node_info())
 
 
 def generateAddress():
@@ -75,23 +74,18 @@ print('receiver address = ' + str(receiver_address))
 
 def storeStringIOTA(string):
     if is_hex(string):
-        print("sending : ", string)
         message = TryteString.from_unicode(string) # Note: if message > 2187 Trytes, it is sent in several transactions
         proposedTransaction = ProposedTransaction(
             address=Address(receiver_address),
             value=0,
             message=message
         )
-        print('built proposed transaction : %s' %str(proposedTransaction))
         transfer = api.send_transfer(  # Execution of the transaction = only time consuming operation
             depth=depth,
             transfers=[proposedTransaction],
         )
-        print('transfer done')
         txhash = str(getTransactionHashes(transfer)[0])
-        print(txhash)
-        print({'status': 'added', 'txid': txhash, 'message': string})
-
+        print("message : '%s' sent" % (string))
         return {'status': 'added', 'txid': txhash, 'message': string}
 
     else:
