@@ -36,15 +36,15 @@ if server == 'SQS':
     queue1 = getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
     queue2 = getQueue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
     errorQueue = getQueue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
-    producer=None
+    producer = None
 
 elif server == 'KAFKA':
     print("SERVICE USING APACHE KAFKA FOR MESSAGING")
     port = args.port
     producer = KafkaProducer(bootstrap_servers=port)
     queue1 = KafkaConsumer('queue1', bootstrap_servers=port)
-    queue2=None
-    errorQueue=None
+    queue2 = None
+    errorQueue = None
 
 chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'  # Used to generate the seed
 # Seed generator
@@ -74,7 +74,7 @@ print('receiver address = ' + str(receiver_address))
 
 def storeStringIOTA(string):
     if is_hex(string):
-        message = TryteString.from_unicode(string) # Note: if message > 2187 Trytes, it is sent in several transactions
+        message = TryteString.from_unicode(string)  # Note: if message > 2187 Trytes, it is sent in several transactions
         proposedTransaction = ProposedTransaction(
             address=Address(receiver_address),
             value=0,
@@ -104,4 +104,6 @@ def main(storefunction):
     while True:
         poll(queue1, errorQueue, queue2, storefunction, server, producer)
 
+
 main(storeStringIOTA)
+
