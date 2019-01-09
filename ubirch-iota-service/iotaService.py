@@ -24,6 +24,14 @@ from iota import ProposedTransaction
 from kafka import *
 from ubirch.anchoring import *
 
+"""
+    The code below is used to initialize paramaters passed in arguments in the terminal.
+    Before starting the service one must choose between --server='SQS' or --server='KAFKA' depending on the message
+    queuing service desired.
+    Depending on the server chosen, several arguments of configuration of the latest are initialized.
+
+"""
+
 args = set_arguments("IOTA")
 server = args.server
 
@@ -46,33 +54,67 @@ elif server == 'KAFKA':
     queue2 = None
     errorQueue = None
 
-chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'  # Used to generate the seed
-# Seed generator
+
 def generateSeed():
+    """
+        This function generates an IOTA seed of fixed length 81 using the set of characters 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'
+
+        :return: Seed is being used to derive private keys from, and thus for signing transactions.
+        :rtype: str
+
+        .. note:: Function used only once to generate the seed.
+    """
+    chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'  # List of characters used to generate the seed
     seed = ''
     for i in range(81): seed += random.choice(chars)
     return seed
 
 
-seed = b'OF9JOIDX9NVXPQUNQLHVBBNKNBVQGMWHIRZBGWJOJLRGQKFMUMZFGAAEQZPXSWVIEBICOBKHAPWYWHAUF'
+"""
+
+    We now chose an IOTA node, and initialize an iota.Iota object with the URI of the node, and optional seed.
+    
+    The depth determines how deep the tangle is analysed for getting Tips. The higher the Depth, the longer will it take
+    to analyze the tangle, but older transactions will receive a higher chance of confirmation.
+    Uri is the uri of the IOTA node.
+    
+"""
+Seed = b'OF9JOIDX9NVXPQUNQLHVBBNKNBVQGMWHIRZBGWJOJLRGQKFMUMZFGAAEQZPXSWVIEBICOBKHAPWYWHAUF'
 depth = 6
 uri = 'https://nodes.devnet.iota.org:443'
-api = Iota(uri, seed=seed)
+api = Iota(uri, seed=Seed)
 
 
 def generateAddress():
+    """
+        Function used to generate a new IOTA address.
+
+        :return: A valid IOTA address
+        :rtype <class 'iota.types.Address'>
+
+    """
     gna_result = api.get_new_addresses(count=1)
     addresses = gna_result['addresses']
     return addresses
 
-
+"""
+    We only need one IOTA address to make the service work
+"""
 receiver_address = generateAddress()[0]
 print('receiver address = ' + str(receiver_address))
 
 
-# We assume the string will not exceed 2187 Trytes as it is supposed to be a hash with a short fixed length
 
 def storeStringIOTA(string):
+    """
+    # We assume the string will not exceed 2187 Trytes as it is supposed to be a hash with a short fixed length
+
+    :param string: message to be sent in the IOTA transaction
+    :return: If the input string is hexadecimal : a dictionnary containing the string sent in the transaction
+    and the transaction hash.
+            If not : False
+    :rtype: Dictionary if the input string is hexadecimal or boolean if not.
+    """
     if is_hex(string):
         message = TryteString.from_unicode(string)  # Note: if message > 2187 Trytes, it is sent in several transactions
         proposedTransaction = ProposedTransaction(
@@ -93,6 +135,11 @@ def storeStringIOTA(string):
 
 
 def getTransactionHashes(transfer):
+    """
+
+    :param transfer:
+    :return:
+    """
     transactionHash = []
     for transaction in transfer["bundle"]:  # Bundle of transaction published on the Tangle
         transactionHash.append(transaction.hash)
@@ -100,7 +147,12 @@ def getTransactionHashes(transfer):
 
 
 def main(storefunction):
-    """Continuously polls the queue for messages"""
+    """
+    Continuously polls the queue1 for messages and processes them in queue2 (sends the dict returned by storestringIOTA)
+    or errorQueue
+
+    :param storefunction: Defines the service used to anchor the messages. Here it is IOTA.
+    """
     while True:
         poll(queue1, errorQueue, queue2, storefunction, server, producer)
 
