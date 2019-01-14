@@ -21,8 +21,8 @@ from iota import Iota
 from iota import Address
 from iota import ProposedTransaction
 
-from kafka import *
 from ubirch.anchoring import *
+from kafka import *
 
 """
     The code below is used to initialize paramaters passed in arguments in the terminal.

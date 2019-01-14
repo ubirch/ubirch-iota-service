@@ -47,11 +47,11 @@ while True:
         send("error %s" % i, server, queue=queue1, topic='queue1', producer=producer)
         print("error %s sent" % i)
         i += 1
-        time.sleep(1)
+        time.sleep(0.5)
 
     else:  # Sends in queue1 the sha256 hash of the time()
         send(message,  server, queue=queue1, topic='queue1', producer=producer)
         print("message %s sent" % j)
         j += 1
-        time.sleep(1)
+        time.sleep(0.5)
 
