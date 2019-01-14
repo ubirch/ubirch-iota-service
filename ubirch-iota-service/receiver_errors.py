@@ -27,7 +27,7 @@ if server == 'SQS':
     region = args.region
     aws_secret_access_key = args.accesskey
     aws_access_key_id = args.keyid
-    errorQueue = getQueue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
+    errorQueue = get_queue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
     producer = None
 
     while True:

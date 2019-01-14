@@ -39,16 +39,15 @@ server = args.server
 logging.warning('Watch out!')  # will print a message to the console
 
 
-
 if server == 'SQS':
     print("SERVICE USING SQS QUEUE MESSAGING")
     url = args.url
     region = args.region
     aws_secret_access_key = args.accesskey
     aws_access_key_id = args.keyid
-    queue1 = getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
-    queue2 = getQueue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
-    errorQueue = getQueue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
+    queue1 = get_queue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
+    queue2 = get_queue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
+    errorQueue = get_queue('errorQueue', url, region, aws_secret_access_key, aws_access_key_id)
     producer = None
 
 elif server == 'KAFKA':
@@ -106,14 +105,14 @@ def store_iota(string):
     """
     if is_hex(string):
         message = TryteString.from_unicode(string)  # Note: if message > 2187 Trytes, it is sent in several transactions
-        proposedTransaction = ProposedTransaction(
+        proposed_transaction = ProposedTransaction(
             address=Address(receiver_address),
             value=0,
             message=message
         )
         transfer = api.send_transfer(  # Execution of the transaction = only time consuming operation
             depth=depth,
-            transfers=[proposedTransaction],
+            transfers=[proposed_transaction],
         )
         txhash = str(get_transaction_hashes(transfer)[0])
         print("message : '%s' sent" % (string))
