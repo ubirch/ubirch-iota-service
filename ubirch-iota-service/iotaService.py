@@ -15,7 +15,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import random
 from iota import TryteString
 from iota import Iota
 from iota import Address
@@ -23,17 +22,23 @@ from iota import ProposedTransaction
 
 from kafka import *
 from ubirch.anchoring import *
+import logging
 
 """
-    The code below is used to initialize paramaters passed in arguments in the terminal.
+    The code below is used to initialize parameters passed in arguments in the terminal.
     Before starting the service one must choose between --server='SQS' or --server='KAFKA' depending on the message
     queuing service desired.
     Depending on the server chosen, several arguments of configuration of the latest are initialized.
 
 """
-
+logger = logging.getLogger('ubirch-iota-service')
 args = set_arguments("IOTA")
 server = args.server
+
+
+logging.warning('Watch out!')  # will print a message to the console
+
+
 
 if server == 'SQS':
     print("SERVICE USING SQS QUEUE MESSAGING")
@@ -54,40 +59,27 @@ elif server == 'KAFKA':
     queue2 = None
     errorQueue = None
 
-
-def generateSeed():
-    """
-        This function generates an IOTA seed of fixed length 81 using the set of characters 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'
-
-        :return: Seed is being used to derive private keys from, and thus for signing transactions.
-        :rtype: str
-
-        .. note:: Function used only once to generate the seed.
-    """
-    chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'  # List of characters used to generate the seed
-    seed = ''
-    for i in range(81): seed += random.choice(chars)
-    return seed
-
-
 """
 
     We now chose an IOTA node, and initialize an iota.Iota object with the URI of the node, and optional seed.
-    
+    If no seed is specified, a random one will be generated
+
     The depth determines how deep the tangle is analysed for getting Tips. The higher the Depth, the longer will it take
     to analyze the tangle, but older transactions will receive a higher chance of confirmation.
     Uri is the uri of the IOTA node.
-    
+
 """
-Seed = b'OF9JOIDX9NVXPQUNQLHVBBNKNBVQGMWHIRZBGWJOJLRGQKFMUMZFGAAEQZPXSWVIEBICOBKHAPWYWHAUF'
-depth = 6
-uri = 'https://nodes.devnet.iota.org:443'
-api = Iota(uri, seed=Seed)
+
+depth = args.depth
+uri = args.uri
+api = Iota(uri)
 
 
-def generateAddress():
+def generate_address():
     """
         Function used to generate a new IOTA address.
+        We only need one IOTA address to make the service work
+
 
         :return: A valid IOTA address
         :rtype <class 'iota.types.Address'>
@@ -97,17 +89,14 @@ def generateAddress():
     addresses = gna_result['addresses']
     return addresses
 
-"""
-    We only need one IOTA address to make the service work
-"""
-receiver_address = generateAddress()[0]
+
+receiver_address = generate_address()[0]
 print('receiver address = ' + str(receiver_address))
 
 
-
-def storeStringIOTA(string):
+def store_iota(string):
     """
-    # We assume the string will not exceed 2187 Trytes as it is supposed to be a hash with a short fixed length
+    We assume the string will not exceed 2187 Trytes as it is supposed to be a hash with a short fixed length
 
     :param string: message to be sent in the IOTA transaction
     :return: If the input string is hexadecimal : a dictionnary containing the string sent in the transaction
@@ -126,7 +115,7 @@ def storeStringIOTA(string):
             depth=depth,
             transfers=[proposedTransaction],
         )
-        txhash = str(getTransactionHashes(transfer)[0])
+        txhash = str(get_transaction_hashes(transfer)[0])
         print("message : '%s' sent" % (string))
         return {'status': 'added', 'txid': txhash, 'message': string}
 
@@ -134,28 +123,31 @@ def storeStringIOTA(string):
         return False
 
 
-def getTransactionHashes(transfer):
+def get_transaction_hashes(transfer):
     """
 
     :param transfer:
     :return:
+
     """
-    transactionHash = []
+    transaction_hash = []
     for transaction in transfer["bundle"]:  # Bundle of transaction published on the Tangle
-        transactionHash.append(transaction.hash)
-    return transactionHash
+        transaction_hash.append(transaction.hash)
+    return transaction_hash
 
 
-def main(storefunction):
+def main(store_function):
     """
+
     Continuously polls the queue1 for messages and processes them in queue2 (sends the dict returned by storestringIOTA)
     or errorQueue
 
-    :param storefunction: Defines the service used to anchor the messages. Here it is IOTA.
+    :param store_function: Defines the service used to anchor the messages. Here it is IOTA.
+
     """
     while True:
-        poll(queue1, errorQueue, queue2, storefunction, server, producer)
+        poll(queue1, errorQueue, queue2, store_function, server, producer)
 
 
-main(storeStringIOTA)
+main(store_iota)
 
