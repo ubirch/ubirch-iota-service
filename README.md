@@ -7,12 +7,12 @@ Please run in your virtual environment:
 
         pip install -r requirements.txt
        
-Moreover, [Elasticmq](https://github.com/adamw/elasticmq) and [Kafka](https://kafka.apache.org/) need to be properly installed. <br>
 This projects mainly uses [pyota](https://media.readthedocs.org/pdf/pyota/develop/pyota.pdf)
 
 ## How to use this service :
 
-1. In dependencies/ you will find the elasticMQ and Apache Kafka servers
+1. Please install [Elasticmq](https://github.com/adamw/elasticmq) and/or [Kafka](https://kafka.apache.org/)
+in a folder called "dependencies" (respect the name so the scripts in bin/ work properly)
 
 
 3. Useful scripts are in bin/ <br>
