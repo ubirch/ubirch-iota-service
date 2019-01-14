@@ -36,11 +36,17 @@ args = set_arguments("IOTA")
 server = args.server
 
 
-logging.warning('Watch out!')  # will print a message to the console
-
+log_levels = {
+    'debug': logging.DEBUG,
+    'info': logging.INFO,
+    'warn': logging.WARN,
+    'error': logging.ERROR,
+}
+log_level = log_levels.get(args.loglevel.lower())
+logger.info("welcome !")
 
 if server == 'SQS':
-    print("SERVICE USING SQS QUEUE MESSAGING")
+    logger.info("SERVICE USING SQS QUEUE MESSAGING")
     url = args.url
     region = args.region
     aws_secret_access_key = args.accesskey
@@ -51,7 +57,7 @@ if server == 'SQS':
     producer = None
 
 elif server == 'KAFKA':
-    print("SERVICE USING APACHE KAFKA FOR MESSAGING")
+    logger.info("SERVICE USING APACHE KAFKA FOR MESSAGING")
     port = args.port
     producer = KafkaProducer(bootstrap_servers=port)
     queue1 = KafkaConsumer('queue1', bootstrap_servers=port)
@@ -90,7 +96,7 @@ def generate_address():
 
 
 receiver_address = generate_address()[0]
-print('receiver address = ' + str(receiver_address))
+logger.info('address used = ' + str(receiver_address))
 
 
 def store_iota(string):
@@ -115,10 +121,13 @@ def store_iota(string):
             transfers=[proposed_transaction],
         )
         txhash = str(get_transaction_hashes(transfer)[0])
-        print("message : '%s' sent" % (string))
+
+        logger.debug("message : '%s' sent" % string)
+        logger.info({'status': 'added', 'txid': txhash, 'message': string})
         return {'status': 'added', 'txid': txhash, 'message': string}
 
     else:
+        logger.warning("Error: the message %s is not hexa" %string)
         return False
 
 
