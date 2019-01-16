@@ -21,7 +21,10 @@ from iota import ProposedTransaction
 
 from kafka import *
 from ubirch.anchoring import *
+
 import logging
+from logging.handlers import RotatingFileHandler
+
 
 """
     The code below is used to initialize parameters passed in arguments in the terminal.
@@ -34,7 +37,7 @@ args = set_arguments("IOTA")
 server = args.server
 
 """
-    Logger configuration 
+    Logger & handlers configuration
 """
 
 log_levels = {
@@ -47,8 +50,23 @@ log_levels = {
 
 logger = logging.getLogger('ubirch-iota-service')
 level = log_levels.get(args.loglevel.lower())
-logging.basicConfig(level=level, filename='iota_service.log', filemode='w',
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger.setLevel(level)
+
+
+# Formatter adding time, name and level of each message when a message is written in the logs
+formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+
+# Handler redirecting logs in a file in 'append' mode, with 1 backup and 1Mo max size
+file_handler = RotatingFileHandler('iota_service.log', mode='a', maxBytes=1000000, backupCount=1)
+file_handler.setLevel(logging.DEBUG)
+file_handler.setFormatter(formatter)
+logger.addHandler(file_handler)
+
+# Handler on the console
+stream_handler = logging.StreamHandler()
+stream_handler.setLevel(logging.DEBUG)
+logger.addHandler(stream_handler)
+
 
 logger.info("You are using ubirch's IOTA anchoring service")
 
@@ -90,8 +108,7 @@ uri = args.uri
 api = Iota(uri, seed=seed)
 
 
-logger.info('address used = ' + str(address))
-logger.info("Depth of transaction : %d" % depth)
+logger.info('address used = %s \n' % str(address))
 
 
 def store_iota(string):
@@ -107,22 +124,20 @@ def store_iota(string):
     """
     if is_hex(string):
         message = TryteString.from_unicode(string)  # Note: if message > 2187 Trytes, it is sent in several transactions
-        logger.debug("message : '%s' is hexadecimal and ready to be sent : " % string)
+        logger.debug("'%s' ready to be sent" % string)
         proposed_transaction = ProposedTransaction(
             address=Address(address),
             value=0,
             message=message
         )
-        logger.debug("Proposed transaction of message : '%s' has been built " % string)
         transfer = api.send_transfer(  # Execution of the transaction = only time consuming operation
             depth=depth,
             transfers=[proposed_transaction],
         )
         txhash = str(get_transaction_hashes(transfer)[0])
 
-        logger.debug("message : '%s' sent" % string)
+        logger.debug("'%s' sent" % string)
         logger.info({'status': 'added', 'txid': txhash, 'message': string})
-
         return {'status': 'added', 'txid': txhash, 'message': string}
 
     else:
