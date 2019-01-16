@@ -28,7 +28,7 @@ Please respect the following folder structure: <br>
         dependencies/
         ├── elasticMQServer
         │   ├── custom.conf
-        │   └── elasticmq-server-0.14.5.jar
+        │   └── elasticmq-server.jar
         └── kafka
             ├── bin
             │   ├── ...
