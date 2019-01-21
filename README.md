@@ -1,12 +1,16 @@
 # ubirch-iota-service
-An IOTA based anchoring service. This projects is using the IOTA testnet.<br>
+This is a command line interface python service developed to anchor data on the IOTA Tangle.<br>
 Please check the [IOTA testnet explorer](https://devnet.thetangle.org/) to look for transactions or addresses.
 
 Default address used in the service:
 **9E99GKDY9BYDQ9PGOHHMUWJLBDREMK9BVHUFRHVXCVUIFXLNTZMXRM9TDXJKZDAKIGZIMCJSH9Q9V9GKW**<br>
 Click [here](https://devnet.thetangle.org/address/9E99GKDY9BYDQ9PGOHHMUWJLBDREMK9BVHUFRHVXCVUIFXLNTZMXRM9TDXJKZDAKIGZIMCJSH9Q9V9GKW) to see all transactions made with this address.
 
-To setup a new address, please run: *generate_address.py* and pass the address generated as argument in the CLI.
+To setup a new address, please run: *generate_address.py* and pass the address generated as argument in the CLI.<br><br>
+Help concerning the CLI can be found running:
+```bash
+python iota-service.py --help
+```
 
 ## Configuration
 
@@ -17,7 +21,7 @@ Please run in your virtual environment:
    ```
        
 This projects mainly uses [pyota](https://media.readthedocs.org/pdf/pyota/develop/pyota.pdf)
-,the official Python library for the IOTA Core.
+,the official Python library for the IOTA Core.<br>
 
 
 ## How to use this service
