@@ -29,7 +29,7 @@ if server == 'SQS':
     region = args.region
     aws_secret_access_key = args.accesskey
     aws_access_key_id = args.keyid
-    queue1 = getQueue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
+    queue1 = get_queue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
     producer = None
 
 elif server == 'KAFKA':
