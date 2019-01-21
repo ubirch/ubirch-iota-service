@@ -142,7 +142,6 @@ and *receiver_errors.py*, with the flag **--server='SQS'** or **--server='KAFKA'
 
 Once the service is running, logs are recorded in *iota_service.log*
 
->>>>>>> 57df83202e99eda4d1aa0c38e5fda63d197e848d
 # License 
 
 This project is publicized under the [Apache License 2.0](LICENSE).
