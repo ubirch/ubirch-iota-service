@@ -139,10 +139,9 @@ and *receiver_errors.py*, with the flag **--server='SQS'** or **--server='KAFKA'
 
 ## Logs
 
-Once the service is running, logs are recorded in [iota_service.log](ubirch-iota-service/iota_service.log)
-
+Once the service is running, logs are recorded in iota_service.log
 
 # License 
 
-This library is publicized under the [Apache License 2.0](LICENSE).
+This project is publicized under the [Apache License 2.0](LICENSE).
 
