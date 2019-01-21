@@ -1,7 +1,2 @@
-<<<<<<< HEAD
-ubirch-python-utils >= 1.2.3
-pyota >= 2.0.6
-=======
 ubirch-python-utils >= 1.2.8
 pyota >= 2.0.6
->>>>>>> master
