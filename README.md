@@ -99,7 +99,7 @@ And custom.conf should look like this:
         
 
 
-3. Useful scripts are in *bin/* <br>
+2. Useful scripts are in *bin/* <br>
     a) In *bin/elasticMQ/*, to run the ElasticMQ server: <br>
       ```bash
       ./start-elasticMQ.sh
@@ -116,10 +116,10 @@ And custom.conf should look like this:
       
 
         
-4. Then, in a terminal, run successicely in *ubirch-iota-service/*, the scripts *sender.py* then *receiver.py*
+3. Then, in a terminal, run successicely in *ubirch-iota-service/*, the scripts *sender.py* then *receiver.py*
 and *receiver_errors.py*, with the flag **--server='SQS'** or **--server='KAFKA'**<br><br>
 
-5. Finally, start the service.<br>
+4. Finally, start the service.<br>
 
     ```bash
     python iotaService.py --server='SQS'
