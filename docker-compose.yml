@@ -1,0 +1,11 @@
+kafka:
+  image: spotify/kafka
+  ports:
+  - "2181:2181"
+  - "9092:9092"
+  hostname: kafka
+  container_name: kafka
+
+
+iota-service:
+  image ubirch/iota
