@@ -116,7 +116,7 @@ def store_iota(string):
     We assume the string will not exceed 2187 Trytes as it is supposed to be a hash with a short fixed length
 
     :param string: message to be sent in the IOTA transaction
-    :return: If the input string is hexadecimal : a dictionnary containing the string sent in the transaction
+    :return: If the input string is hexadecimal : a dictionary containing the string sent in the transaction
     and the transaction hash.
             If not : False
     :rtype: Dictionary if the input string is hexadecimal or boolean if not.
