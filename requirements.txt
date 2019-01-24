@@ -1,2 +1,2 @@
-ubirch-python-utils >= 1.2.8
+ubirch-python-utils >= 1.2.9.1
 pyota >= 2.0.6
