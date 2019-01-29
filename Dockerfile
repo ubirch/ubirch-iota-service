@@ -10,7 +10,7 @@ ARG IOTA_SEED=None
 ARG IOTA_NODE_URI='https://nodes.devnet.iota.org:443'
 ARG IOTA_DEPTH=6
 
-ARG KAFKA_PORT=['localhost:9092']
+ARG KAFKA_BOOTSTRAP_SERVER='localhost:9092'
 
 ARG SQS_URL="http://localhost:9324"
 ARG SQS_REGION="elasticmq"
@@ -25,7 +25,7 @@ ENV IOTA_SEED=${IOTA_SEED}
 ENV IOTA_NODE_URI=${IOTA_NODE_URI}
 ENV IOTA_DEPTH=${IOTA_DEPTH}
 
-ENV KAFKA_PORT=${KAFKA_PORT}
+ENV KAFKA_BOOTSTRAP_SERVER=${KAFKA_BOOTSTRAP_SERVER}
 
 ENV SQS_URL=${SQS_URL}
 ENV SQS_REGION=${SQS_REGION}
@@ -42,5 +42,4 @@ COPY ubirch-iota-service/iota_service.py /iota-service/
 COPY start.sh /iota-service/
 RUN chmod +x ./start.sh
 
-# ENTRYPOINT ["python", "iota_service.py"]
 CMD ["./start.sh"]

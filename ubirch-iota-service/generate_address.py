@@ -1,11 +1,12 @@
 from iota import Iota
 from ubirch.anchoring import *
-
+import random
 
 args = set_arguments("IOTA")
 depth = args.depth
 uri = args.uri
 api = Iota(uri)
+
 
 def generate_address():
     """
@@ -23,4 +24,18 @@ def generate_address():
     return addresses[0]
 
 
-print(generate_address())
+print("new address = %s" % generate_address())
+
+
+chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ9'  # Used to generate the seed
+
+
+# Seed generator
+
+def generate_seed():
+    seed = ''
+    for i in range(81): seed += random.choice(chars)
+    return seed
+
+
+print("new seed = %s " % generate_seed())

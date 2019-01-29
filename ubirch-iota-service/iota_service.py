@@ -18,6 +18,7 @@
 from iota import TryteString
 from iota import Iota
 from iota import ProposedTransaction
+from iota import Address
 
 from kafka import *
 from ubirch.anchoring import *
@@ -83,11 +84,11 @@ if server == 'SQS':
 
 elif server == 'KAFKA':
     logger.info("SERVICE USING APACHE KAFKA FOR MESSAGING")
-    port = args.port
-    producer = KafkaProducer(bootstrap_servers=port)
-    queue1 = KafkaConsumer('queue1', bootstrap_servers=port)
-    queue2 = None
-    error_queue = None
+    bootstrap_server = args.bootstrap_server
+    producer = KafkaProducer(bootstrap_servers=bootstrap_server)
+    queue1 = KafkaConsumer('queue1', bootstrap_servers=bootstrap_server)
+    queue2 = KafkaConsumer('queue2', bootstrap_servers=bootstrap_server)
+    error_queue = KafkaConsumer('error_queue', bootstrap_servers=bootstrap_server)
 
 
 """
@@ -108,7 +109,7 @@ uri = args.uri
 api = Iota(uri, seed=seed)
 
 
-logger.info('address used = %s \n' % str(address))
+logger.info('address used = %s, seed used: %s \n' % (str(address), str(seed)))
 
 
 def store_iota(string):

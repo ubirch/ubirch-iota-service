@@ -9,7 +9,7 @@ Click [here](https://devnet.thetangle.org/address/9E99GKDY9BYDQ9PGOHHMUWJLBDREMK
 To setup a new address, please run: *generate_address.py* and pass the address generated as argument in the CLI.<br><br>
 Help concerning the CLI can be found running:
 ```bash
-python iota-service.py --help
+python iota_service.py --help
 ```
 
 ## Configuration
@@ -120,18 +120,18 @@ And custom.conf should look like this:
       
 
         
-3. Then, in a terminal, run successicely in *ubirch-iota-service/*, the scripts *sender.py* then *receiver.py*
+3. Then, in a terminal, run successively in *ubirch-iota-service/*, the scripts *sender.py* then *receiver.py*
 and *receiver_errors.py*, with the flag **--server='SQS'** or **--server='KAFKA'**<br><br>
 
 4. Finally, start the service.<br>
 
     ```bash
-    python iotaService.py --server='SQS'
+    python iota_service.py --server='SQS'
     ```
     Or:
 
    ```bash
-    python iotaService.py --server='KAFKA'
+    python iota_service.py --server='KAFKA'
    ```
     Where:
     - --server='SQS' to use elasticMQ's SQS queuing service
