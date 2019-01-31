@@ -73,22 +73,27 @@ logger.info("You are using ubirch's IOTA anchoring service")
 
 if server == 'SQS':
     logger.info("SERVICE USING SQS QUEUE MESSAGING")
+
     url = args.url
     region = args.region
     aws_secret_access_key = args.accesskey
     aws_access_key_id = args.keyid
-    queue1 = get_queue('queue1', url, region, aws_secret_access_key, aws_access_key_id)
-    queue2 = get_queue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
-    error_queue = get_queue('error_queue', url, region, aws_secret_access_key, aws_access_key_id)
+
+    input_messages = get_queue(args.input, url, region, aws_secret_access_key, aws_access_key_id)
+    output_messages = get_queue(args.output, url, region, aws_secret_access_key, aws_access_key_id)
+    error_messages = get_queue(args.errors, url, region, aws_secret_access_key, aws_access_key_id)
     producer = None
 
 elif server == 'KAFKA':
     logger.info("SERVICE USING APACHE KAFKA FOR MESSAGING")
+
+    input_messages = args.input
+    output_messages = args.output
+    error_messages = args.errors
+
     bootstrap_server = args.bootstrap_server
     producer = KafkaProducer(bootstrap_servers=bootstrap_server)
-    queue1 = KafkaConsumer('queue1', bootstrap_servers=bootstrap_server)
-    queue2 = KafkaConsumer('queue2', bootstrap_servers=bootstrap_server)
-    error_queue = KafkaConsumer('error_queue', bootstrap_servers=bootstrap_server)
+    input_messages = KafkaConsumer(args.input, bootstrap_servers=bootstrap_server)
 
 
 """
@@ -179,7 +184,7 @@ def main(store_function):
 
     """
     while True:
-        poll(queue1, error_queue, queue2, store_function, server, producer)
+        poll(input_messages, error_messages, output_messages, store_function, server, producer)
 
 
 main(store_iota)

@@ -23,15 +23,17 @@ server = args.server
 
 if server == 'SQS':
     print("SERVICE USING SQS QUEUE MESSAGING")
+    print("error queue name : %s" % args.errors)
+
     url = args.url
     region = args.region
     aws_secret_access_key = args.accesskey
     aws_access_key_id = args.keyid
-    error_queue = get_queue('error_queue', url, region, aws_secret_access_key, aws_access_key_id)
-    producer = None
+
+    error_messages = get_queue(args.errors, url, region, aws_secret_access_key, aws_access_key_id)
 
     while True:
-        errors = error_queue.receive_messages()
+        errors = error_messages.receive_messages()
         for e in errors:
             print(e.body)
             e.delete()
@@ -39,11 +41,10 @@ if server == 'SQS':
 
 elif server == 'KAFKA':
     print("SERVICE USING APACHE KAFKA FOR MESSAGING")
+    print("error topic name : %s" % args.errors)
+
     bootstrap_server = args.bootstrap_server
-    producer = KafkaProducer(bootstrap_servers=bootstrap_server)
-    error_queue = KafkaConsumer('error_queue', bootstrap_servers=bootstrap_server,
-                                value_deserializer=lambda m: json.loads(m.decode('ascii')))
-    for message in error_queue:
-        print(json.dumps(message.value))
-
-
+    error_messages = KafkaConsumer(args.errors, bootstrap_servers=bootstrap_server,
+                                   value_deserializer=lambda m: json.dumps(m.decode('ascii')))
+    for message in error_messages:
+        print(json.loads(message.value))

@@ -23,15 +23,18 @@ server = args.server
 
 if server == 'SQS':
     print("SERVICE USING SQS QUEUE MESSAGING")
+    print("output queue name : %s" % args.output)
+
     url = args.url
     region = args.region
     aws_secret_access_key = args.accesskey
     aws_access_key_id = args.keyid
-    queue2 = get_queue('queue2', url, region, aws_secret_access_key, aws_access_key_id)
+
+    output_messages = get_queue(args.output, url, region, aws_secret_access_key, aws_access_key_id)
     producer = None
 
     while True:
-        response = queue2.receive_messages()
+        response = output_messages.receive_messages()
         for r in response:
             print(r.body)
             r.delete()
@@ -39,11 +42,13 @@ if server == 'SQS':
 
 elif server == 'KAFKA':
     print("SERVICE USING APACHE KAFKA FOR MESSAGING")
+    print("output topic name : %s" % args.output)
+
     bootstrap_server = args.bootstrap_server
-    producer = KafkaProducer(bootstrap_servers=bootstrap_server)
-    queue2 = KafkaConsumer('queue2', bootstrap_servers=bootstrap_server, value_deserializer=lambda m: json.loads(m.decode('ascii')))
-    for message in queue2:
-        print(json.dumps(message.value))
+    output_messages = KafkaConsumer(args.output, bootstrap_servers=bootstrap_server,
+                                    value_deserializer=lambda m: json.dumps(m.decode('ascii')))
+    for message in output_messages:
+        print(json.loads(message.value))
 
 
 
