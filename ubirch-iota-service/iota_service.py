@@ -140,11 +140,11 @@ def store_iota(string):
             depth=depth,
             transfers=[proposed_transaction],
         )
-        txhash = str(get_transaction_hashes(transfer)[0])
+        tx_hash = str(get_transaction_hashes(transfer)[0])
 
         logger.debug("'%s' sent" % string)
-        logger.info({'status': 'added', 'txid': txhash, 'message': string})
-        return {'status': 'added', 'txid': txhash, 'message': string}
+        logger.info({'status': 'added', 'txid': tx_hash, 'message': string})
+        return {'status': 'added', 'txid': tx_hash, 'message': string}
 
     else:
         logger.warning({"Not a hash": string})

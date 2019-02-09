@@ -72,7 +72,7 @@ And custom.conf should look like this:
         
         queues {
         
-          queue1 {
+          input_messages {
             defaultVisibilityTimeout = 10 seconds
             receiveMessageWait = 0 seconds
             deadLettersQueue {
@@ -81,7 +81,7 @@ And custom.conf should look like this:
             }
           }
         
-            queue2 {
+            output_messages {
             defaultVisibilityTimeout = 10 seconds
             receiveMessageWait = 0 seconds
             deadLettersQueue {
@@ -90,7 +90,7 @@ And custom.conf should look like this:
             }
           }
         
-            error_queue {
+            error_messages {
             defaultVisibilityTimeout = 10 seconds
             receiveMessageWait = 0 seconds
             deadLettersQueue {
