@@ -87,7 +87,6 @@ if server == 'SQS':
 elif server == 'KAFKA':
     logger.info("SERVICE USING APACHE KAFKA FOR MESSAGING")
 
-    input_messages = args.input
     output_messages = args.output
     error_messages = args.errors
 

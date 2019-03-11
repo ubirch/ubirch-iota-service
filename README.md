@@ -6,7 +6,15 @@ Default address used in the service:
 **9E99GKDY9BYDQ9PGOHHMUWJLBDREMK9BVHUFRHVXCVUIFXLNTZMXRM9TDXJKZDAKIGZIMCJSH9Q9V9GKW**<br>
 Click [here](https://devnet.thetangle.org/address/9E99GKDY9BYDQ9PGOHHMUWJLBDREMK9BVHUFRHVXCVUIFXLNTZMXRM9TDXJKZDAKIGZIMCJSH9Q9V9GKW) to see all transactions made with this address.
 
-To setup a new address, please run: *generate_address.py* and pass the address generated as argument in the CLI.<br><br>
+To setup a new address, please run: *generate_address.py* and pass the address generated as argument in the CLI.<br>
+
+To generate a new seed:<br>
+a) You can use python : *generate_address.py* <br>
+b) Or you can use the UNIX shell:
+```bash
+cat /dev/urandom |tr -dc A-Z9|head -c${1:-81}
+```
+<br><br>
 Help concerning the CLI can be found running:
 ```bash
 python iota_service.py --help
@@ -72,7 +80,7 @@ And custom.conf should look like this:
         
         queues {
         
-          input_messages {
+          input {
             defaultVisibilityTimeout = 10 seconds
             receiveMessageWait = 0 seconds
             deadLettersQueue {
@@ -81,7 +89,7 @@ And custom.conf should look like this:
             }
           }
         
-            output_messages {
+            output {
             defaultVisibilityTimeout = 10 seconds
             receiveMessageWait = 0 seconds
             deadLettersQueue {
@@ -90,7 +98,7 @@ And custom.conf should look like this:
             }
           }
         
-            error_messages {
+            errors {
             defaultVisibilityTimeout = 10 seconds
             receiveMessageWait = 0 seconds
             deadLettersQueue {
