@@ -23,9 +23,9 @@ from iota import Address
 from kafka import *
 from ubirch.anchoring import *
 
-import logging
-from logging.handlers import RotatingFileHandler
+import datetime
 
+import logging
 
 """
     The code below is used to initialize parameters passed in arguments in the terminal.
@@ -58,16 +58,15 @@ logger.setLevel(level)
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 
 # Handler redirecting logs in a file in 'append' mode, with 1 backup and 1Mo max size
-file_handler = RotatingFileHandler('iota_service.log', mode='a', maxBytes=1000000, backupCount=1)
-file_handler.setLevel(logging.DEBUG)
-file_handler.setFormatter(formatter)
-logger.addHandler(file_handler)
+# file_handler = RotatingFileHandler('iota_service.log', mode='a', maxBytes=1000000, backupCount=1)
+# file_handler.setLevel(logging.DEBUG)
+# file_handler.setFormatter(formatter)
+# logger.addHandler(file_handler)
 
 # Handler on the console
 stream_handler = logging.StreamHandler()
 stream_handler.setLevel(logging.DEBUG)
 logger.addHandler(stream_handler)
-
 
 logger.info("You are using ubirch's IOTA anchoring service")
 
@@ -128,7 +127,7 @@ def store_iota(string):
     :rtype: Dictionary if the input string is hexadecimal or boolean if not.
 
     """
-    if is_hex(string):
+    if string != "":
         message = TryteString.from_unicode(string)  # Note: if message > 2187 Trytes, it is sent in several transactions
         logger.debug("'%s' ready to be sent" % string)
         proposed_transaction = ProposedTransaction(
@@ -142,9 +141,15 @@ def store_iota(string):
         )
         tx_hash = str(get_transaction_hashes(transfer)[0])
 
-        logger.debug("'%s' sent" % string)
-        logger.info({'status': 'added', 'txid': tx_hash, 'message': string})
-        return {'status': 'added', 'txid': tx_hash, 'message': string}
+        created = datetime.datetime.now().isoformat()
+
+        if tx_hash is None:
+            logger.info({'status': 'timeout', 'message': string})
+            return {'status': 'timeout', 'message': string, 'blockchain': 'iota' , 'network_info': 'IOTA Testnet Network','network_type': 'testnet', 'created': created}
+        else:
+            logger.debug("'%s' sent" % string)
+            logger.info({'status': 'added', 'txid': tx_hash, 'message': string})
+            return {'status': 'added', 'txid': tx_hash, 'message': string, 'blockchain': 'iota' , 'network_info': 'IOTA Testnet Network', 'network_type': 'testnet', 'created': created}
 
     else:
         logger.warning({"Not a hash": string})
@@ -188,4 +193,3 @@ def main(store_function):
 
 
 main(store_iota)
-
