@@ -5,7 +5,7 @@ LABEL description="ubirch IOTA anchoring service"
 WORKDIR /iota-service/
 
 RUN apk update
-RUN apk add build-base
+RUN apk add build-base libffi-dev openssl-dev
 
 COPY requirements.txt /iota-service/
 RUN pip install -r requirements.txt
