@@ -1,8 +1,11 @@
-FROM python:3.6
+FROM python:3.6-alpine
 
 LABEL description="ubirch IOTA anchoring service"
 
 WORKDIR /iota-service/
+
+RUN apk update
+RUN apk add build-base
 
 COPY requirements.txt /iota-service/
 RUN pip install -r requirements.txt
