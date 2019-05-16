@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env sh
 
 python iota_service.py -s ${SERVER} -ll ${LOGLEVEL} -a ${IOTA_ADDRESS} -d ${IOTA_DEPTH} -uri ${IOTA_NODE_URI} -seed ${IOTA_SEED} -bs ${KAFKA_BOOTSTRAP_SERVER} -i ${INPUT} -o ${OUTPUT} -e ${ERRORS}
 
