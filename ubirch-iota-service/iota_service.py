@@ -15,17 +15,15 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-from iota import TryteString
+import datetime
+import logging
+
+from iota import Address
 from iota import Iota
 from iota import ProposedTransaction
-from iota import Address
-
+from iota import TryteString
 from kafka import *
 from ubirch.anchoring import *
-
-import datetime
-
-import logging
 
 """
     The code below is used to initialize parameters passed in arguments in the terminal.
@@ -48,11 +46,9 @@ log_levels = {
     'error': logging.ERROR,
 }
 
-
 logger = logging.getLogger('ubirch-iota-service')
 level = log_levels.get(args.loglevel.lower())
 logger.setLevel(level)
-
 
 # Formatter adding time, name and level of each message when a message is written in the logs
 formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -94,7 +90,6 @@ elif server == 'KAFKA':
     producer = KafkaProducer(bootstrap_servers=bootstrap_server)
     input_messages = KafkaConsumer(args.input, bootstrap_servers=bootstrap_server)
 
-
 """
 
     We now chose an IOTA node, and initialize an iota.Iota object with the URI of the node, and optional seed.
@@ -110,8 +105,10 @@ depth = args.depth
 seed = args.seed
 uri = args.uri
 
-api = Iota(uri, seed=seed)
+networktype = args.networktype
+networkinfo = args.networkinfo
 
+api = Iota(uri, seed=seed)
 
 logger.info('address used = %s, seed used: %s \n' % (str(address), str(seed)))
 
@@ -144,15 +141,17 @@ def store_iota(string):
         created = datetime.datetime.now().isoformat()
 
         if tx_hash is None:
-            logger.info({'status': 'timeout', 'message': string})
-            return {'status': 'timeout', 'message': string, 'blockchain': 'iota' , 'network_info': 'IOTA Testnet Network','network_type': 'testnet', 'created': created}
+            logger.error({'status': 'timeout', 'message': string})
+            return {'status': 'timeout', 'message': string, 'blockchain': 'iota', 'network_info': networkinfo,
+                    'network_type': networktype, 'created': created}
         else:
             logger.debug("'%s' sent" % string)
             logger.info({'status': 'added', 'txid': tx_hash, 'message': string})
-            return {'status': 'added', 'txid': tx_hash, 'message': string, 'blockchain': 'iota' , 'network_info': 'IOTA Testnet Network', 'network_type': 'testnet', 'created': created}
+            return {'status': 'added', 'txid': tx_hash, 'message': string, 'blockchain': 'iota',
+                    'network_info': networkinfo, 'network_type': networktype, 'created': created}
 
     else:
-        logger.warning({"Not a hash": string})
+        logger.error({"emtpy message": string})
         return False
 
 
