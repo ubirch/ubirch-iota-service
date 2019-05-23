@@ -141,14 +141,15 @@ def store_iota(string):
         created = datetime.datetime.now().isoformat()
 
         if tx_hash is None:
-            logger.error({'status': 'timeout', 'message': string})
-            return {'status': 'timeout', 'message': string, 'blockchain': 'iota', 'network_info': networkinfo,
-                    'network_type': networktype, 'created': created}
+            result = {'status': 'timeout', 'message': string, 'blockchain': 'iota', 'network_info': networkinfo,
+                      'network_type': networktype, 'created': created}
+            logger.error(result)
+            return result
         else:
             logger.debug("'%s' sent" % string)
-            logger.info({'status': 'added', 'txid': tx_hash, 'message': string})
-            return {'status': 'added', 'txid': tx_hash, 'message': string, 'blockchain': 'iota',
-                    'network_info': networkinfo, 'network_type': networktype, 'created': created}
+            result = {'status': 'added', 'txid': tx_hash, 'message': string, 'blockchain': 'iota', 'network_info': networkinfo, 'network_type': networktype, 'created': created}
+            logger.info(result)
+            return result
 
     else:
         logger.error({"emtpy message": string})

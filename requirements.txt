@@ -1,3 +1,3 @@
-ubirch-python-utils >= 1.3.8
+ubirch-python-utils >= 1.3.10
 pyota >= 2.0.7
 urllib3 <1.25,>=1.20
